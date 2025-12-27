@@ -23,104 +23,125 @@
             position: sticky;
             top: 0;
             z-index: 50;
-            padding: 20px;
+            padding: 15px 10px;
             text-align: center;
         }
-        header h1 { font-size: 24px; margin-bottom: 5px; }
-        header p { font-size: 14px; color: #64748b; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        header h1 { font-size: 18px; margin-bottom: 5px; }
+        header p { font-size: 12px; color: #64748b; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 10px; }
         .hero {
             background: white;
-            padding: 40px;
-            border-radius: 12px;
+            padding: 20px;
+            border-radius: 8px;
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 15px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
-        .hero h2 { font-size: 36px; margin-bottom: 15px; }
-        .hero .tagline { font-size: 22px; color: #475569; margin-bottom: 10px; }
-        .hero p { font-size: 16px; color: #64748b; }
+        .hero h2 { font-size: 24px; margin-bottom: 10px; }
+        @media (max-width: 768px) {
+            .hero h2 { font-size: 20px; }
+            .hero { padding: 15px; margin-bottom: 10px; }
+        }
+        .hero .tagline { font-size: 16px; color: #475569; margin-bottom: 8px; }
+        .hero p { font-size: 14px; color: #64748b; }
         .calendar-section {
             background: white;
-            padding: 30px;
-            border-radius: 12px;
+            padding: 15px;
+            border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
-        .calendar-section h3 { font-size: 28px; margin-bottom: 20px; }
+        .calendar-section h3 { font-size: 22px; margin-bottom: 15px; }
         .month-controls {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
-            gap: 10px;
+            margin-bottom: 15px;
+            gap: 8px;
         }
         .month-controls button {
             background: #e2e8f0;
             border: none;
-            padding: 10px 20px;
+            padding: 8px 12px;
             cursor: pointer;
-            font-size: 18px;
+            font-size: 14px;
             border-radius: 6px;
             transition: all 0.3s ease;
         }
         .month-controls button:hover { background: #cbd5e1; }
-        .month-name { font-size: 24px; text-align: center; flex: 1; }
+        .month-name { font-size: 18px; text-align: center; flex: 1; }
         .day-headers {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            gap: 8px;
-            margin-bottom: 10px;
+            gap: 4px;
+            margin-bottom: 8px;
         }
         .day-header {
             text-align: center;
             font-weight: bold;
-            font-size: 12px;
+            font-size: 11px;
             color: #64748b;
-            padding: 10px;
+            padding: 6px 0;
         }
         .calendar-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            gap: 8px;
+            gap: 4px;
         }
         .calendar-day {
             border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 10px;
-            min-height: 140px;
+            border-radius: 6px;
+            padding: 6px;
+            min-height: 100px;
             overflow-y: auto;
             background: white;
+            font-size: 12px;
+        }
+        @media (max-width: 768px) {
+            .calendar-day { min-height: 90px; padding: 5px; }
+        }
+        @media (max-width: 480px) {
+            .calendar-day { min-height: 80px; padding: 4px; font-size: 11px; }
         }
         .calendar-day.empty { background: transparent; border: none; }
         .calendar-day.has-events { background: #fef3c7; border-color: #fbbf24; }
-        .day-number { font-weight: bold; font-size: 14px; margin-bottom: 8px; }
+        .day-number { font-weight: bold; font-size: 13px; margin-bottom: 5px; }
         .activity {
             font-size: 10px;
-            padding: 6px;
-            margin-bottom: 5px;
-            border-radius: 4px;
-            border-left: 3px solid;
-            line-height: 1.3;
+            padding: 4px;
+            margin-bottom: 3px;
+            border-radius: 3px;
+            border-left: 2px solid;
+            line-height: 1.2;
+        }
+        @media (max-width: 480px) {
+            .activity { font-size: 9px; padding: 3px; }
         }
         .activity.service { background: #fef3c7; border-color: #d97706; color: #92400e; }
         .activity.worship { background: #ede9fe; border-color: #7c3aed; color: #5b21b6; }
         .activity.prayer { background: #dbeafe; border-color: #2563eb; color: #1e40af; }
         .activity.study { background: #dcfce7; border-color: #16a34a; color: #15803d; }
         .activity.youth { background: #fbcfe8; border-color: #ec4899; color: #831843; }
-        .activity-title { font-weight: bold; margin-bottom: 2px; }
-        .activity-time { font-weight: 600; margin: 2px 0; }
-        .activity-leader { margin-top: 2px; border-top: 1px solid; padding-top: 2px; font-weight: bold; }
-        .activity-zoom { font-style: italic; font-size: 9px; margin-top: 2px; }
+        .activity-title { font-weight: bold; margin-bottom: 1px; }
+        .activity-time { font-weight: 600; margin: 1px 0; font-size: 9px; }
+        .activity-leader { margin-top: 1px; border-top: 1px solid; padding-top: 1px; font-weight: bold; font-size: 9px; }
+        .activity-zoom { font-style: italic; font-size: 8px; margin-top: 1px; }
         footer {
             background: #1e293b;
             color: white;
-            padding: 30px 20px;
+            padding: 20px;
             text-align: center;
-            margin-top: 30px;
+            margin-top: 20px;
         }
-        footer h3 { margin-bottom: 10px; }
-        footer p { font-size: 14px; color: #cbd5e1; }
+        @media (max-width: 480px) {
+            footer { padding: 15px 10px; }
+        }
+        footer h3 { margin-bottom: 8px; font-size: 18px; }
+        footer p { font-size: 12px; color: #cbd5e1; margin: 4px 0; }
+        @media (max-width: 480px) {
+            footer h3 { font-size: 16px; }
+            footer p { font-size: 11px; }
+        }
     </style>
 </head>
 <body>
@@ -140,7 +161,7 @@
             <h3>Church Calendar 2026</h3>
             
             <div class="month-controls">
-                <button onclick="prevMonth()">◀ Previous</button>
+                <button onclick="prevMonth()">◀ Prev</button>
                 <div class="month-name" id="monthName">January 2026</div>
                 <button onclick="nextMonth()">Next ▶</button>
             </div>
@@ -163,7 +184,7 @@
         <h3>Flaming Bible Church UK North London</h3>
         <p>Rev Marrah @ 07808 892341 | Rev Felix @ 07722139191</p>
         <p>Anthony Marsh Building - Springfield Youth Club, Big Hill, Clapton, London E5 9HH</p>
-        <p style="margin-top: 15px;">© 2026 Flaming Bible Church UK North London. All rights reserved.</p>
+        <p style="margin-top: 10px;">© 2026 Flaming Bible Church UK North London. All rights reserved.</p>
     </footer>
 
     <script>
@@ -228,21 +249,17 @@
                 const breakfastMonths = [0, 3, 6, 9];
                 const isBreakfastSunday = thirdSunday && breakfastMonths.includes(month);
 
-                // Always add Sunday Service with preacher
                 activities.push({ title: "Sunday Service", time: "11:00 AM - 1:00 PM", type: "service", leader: preacher });
 
-                // Add special activities on 3rd Sunday (non-breakfast)
                 if (thirdSunday && !isBreakfastSunday) {
                     activities.push({ title: "Communion Sunday", time: "11:00 AM - 1:00 PM", type: "service" });
                     activities.push({ title: "Mission Sunday", time: "11:00 AM - 1:00 PM", type: "service" });
                 }
 
-                // Add Breakfast Sunday
                 if (isBreakfastSunday) {
                     activities.push({ title: "Breakfast Sunday", time: "11:00 AM - 1:00 PM", type: "service" });
                 }
 
-                // Add Evangelism Sunday
                 if (isLastSunday) {
                     activities.push({ title: "Evangelism Sunday", type: "service" });
                 }
@@ -325,14 +342,12 @@
 
             document.getElementById('monthName').textContent = currentDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
 
-            // Empty cells
             for (let i = 0; i < firstDay; i++) {
                 const cell = document.createElement('div');
                 cell.className = 'calendar-day empty';
                 grid.appendChild(cell);
             }
 
-            // Days with events
             for (let day = 1; day <= lastDate; day++) {
                 const date = new Date(year, month, day);
                 const activities = generateActivities(date);
@@ -347,7 +362,7 @@
                         <div class="activity-title">${activity.title}</div>
                         ${activity.time ? `<div class="activity-time">${activity.time}</div>` : ''}
                         ${activity.leader ? `<div class="activity-leader">🎤 ${activity.leader}</div>` : ''}
-                        <div class="activity-zoom">Live & via Zoom</div>
+                        <div class="activity-zoom">Live & Zoom</div>
                     </div>`;
                 });
                 
@@ -366,7 +381,6 @@
             renderCalendar();
         }
 
-        // Initial render
         renderCalendar();
     </script>
 </body>
