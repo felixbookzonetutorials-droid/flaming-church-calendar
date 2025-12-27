@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1e293b">
+    <meta name="description" content="Flaming Bible Church UK North London - 2026 Ministry Calendar">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Flaming Ministry Calendar">
+    <link rel="manifest" href="manifest.json">
+    <title>Flaming Bible Church UK North London - 2026 Ministry Calendar</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: Georgia, 'Times New Roman', serif;
+            background: linear-gradient(to bottom right, #f1f5f9, #ffffff, #f5f3f0);
+            color: #1e293b;
+        }
+        header {
+            background: rgba(255, 255, 255, 0.9);
+            border-bottom: 2px solid #e2e8f0;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            padding: 20px;
+            text-align: center;
+        }
+        header h1 { font-size: 24px; margin-bottom: 5px; }
+        header p { font-size: 14px; color: #64748b; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .hero {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .hero h2 { font-size: 36px; margin-bottom: 15px; }
+        .hero .tagline { font-size: 22px; color: #475569; margin-bottom: 10px; }
+        .hero p { font-size: 16px; color: #64748b; }
+        .calendar-section {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        .calendar-section h3 { font-size: 28px; margin-bottom: 20px; }
+        .month-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+        .month-controls button {
+            background: #e2e8f0;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+        .month-controls button:hover { background: #cbd5e1; }
+        .month-name { font-size: 24px; text-align: center; flex: 1; }
+        .day-headers {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        .day-header {
+            text-align: center;
+            font-weight: bold;
+            font-size: 12px;
+            color: #64748b;
+            padding: 10px;
+        }
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+        }
+        .calendar-day {
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 10px;
+            min-height: 140px;
+            overflow-y: auto;
+            background: white;
+        }
+        .calendar-day.empty { background: transparent; border: none; }
+        .calendar-day.has-events { background: #fef3c7; border-color: #fbbf24; }
+        .day-number { font-weight: bold; font-size: 14px; margin-bottom: 8px; }
+        .activity {
+            font-size: 10px;
+            padding: 6px;
+            margin-bottom: 5px;
+            border-radius: 4px;
+            border-left: 3px solid;
+            line-height: 1.3;
+        }
+        .activity.service { background: #fef3c7; border-color: #d97706; color: #92400e; }
+        .activity.worship { background: #ede9fe; border-color: #7c3aed; color: #5b21b6; }
+        .activity.prayer { background: #dbeafe; border-color: #2563eb; color: #1e40af; }
+        .activity.study { background: #dcfce7; border-color: #16a34a; color: #15803d; }
+        .activity.youth { background: #fbcfe8; border-color: #ec4899; color: #831843; }
+        .activity-title { font-weight: bold; margin-bottom: 2px; }
+        .activity-time { font-weight: 600; margin: 2px 0; }
+        .activity-leader { margin-top: 2px; border-top: 1px solid; padding-top: 2px; font-weight: bold; }
+        .activity-zoom { font-style: italic; font-size: 9px; margin-top: 2px; }
+        footer {
+            background: #1e293b;
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            margin-top: 30px;
+        }
+        footer h3 { margin-bottom: 10px; }
+        footer p { font-size: 14px; color: #cbd5e1; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Flaming Bible Church UK North London</h1>
+        <p>A place of fulfilling God's Purpose</p>
+    </header>
+
+    <div class="container">
+        <div class="hero">
+            <h2>Welcome to Flaming Bible Church UK North London</h2>
+            <p class="tagline">A place of fulfilling God's Purpose</p>
+            <p>Join us as we grow together in faith and serve our community with love and compassion</p>
+        </div>
+
+        <div class="calendar-section">
+            <h3>Church Calendar 2026</h3>
+            
+            <div class="month-controls">
+                <button onclick="prevMonth()">◀ Previous</button>
+                <div class="month-name" id="monthName">January 2026</div>
+                <button onclick="nextMonth()">Next ▶</button>
+            </div>
+
+            <div class="day-headers">
+                <div class="day-header">Sun</div>
+                <div class="day-header">Mon</div>
+                <div class="day-header">Tue</div>
+                <div class="day-header">Wed</div>
+                <div class="day-header">Thu</div>
+                <div class="day-header">Fri</div>
+                <div class="day-header">Sat</div>
+            </div>
+
+            <div class="calendar-grid" id="calendarGrid"></div>
+        </div>
+    </div>
+
+    <footer>
+        <h3>Flaming Bible Church UK North London</h3>
+        <p>Rev Marrah @ 07808 892341 | Rev Felix @ 07722139191</p>
+        <p>Anthony Marsh Building - Springfield Youth Club, Big Hill, Clapton, London E5 9HH</p>
+        <p style="margin-top: 15px;">© 2026 Flaming Bible Church UK North London. All rights reserved.</p>
+    </footer>
+
+    <script>
+        let currentDate = new Date(2026, 0, 1);
+
+        const preachingRoster = {
+            "01-04": "Rev S Marrah", "01-11": "Rev S Marrah", "01-18": "Rev Felix Kachimanga", "01-25": "Deaconess Angela Armstrong",
+            "02-01": "Rev S Marrah", "02-08": "Rev S Marrah", "02-15": "Rev Felix Kachimanga", "02-22": "Elder Abu Brima",
+            "03-01": "Rev S Marrah", "03-08": "Rev S Marrah", "03-15": "Rev Felix Kachimanga", "03-22": "Elder Essie Marrah", "03-29": "Elder Paul Luke",
+            "04-05": "Rev S Marrah", "04-12": "Rev S Marrah", "04-19": "Rev Felix Kachimanga", "04-26": "Sis Matilda Wilson",
+            "05-03": "Rev S Marrah", "05-10": "Rev S Marrah", "05-17": "Rev Felix Kachimanga", "05-24": "Elder Georgetia Luke", "05-31": "Sis Faith Orafu",
+            "06-07": "Rev S Marrah", "06-14": "Rev S Marrah", "06-21": "Rev Felix Kachimanga", "06-28": "Elder Chantal Kachimanga",
+            "07-05": "Rev S Marrah", "07-12": "Rev S Marrah", "07-19": "Rev Felix Kachimanga", "07-26": "Elder Essie Marrah",
+            "08-02": "Rev S Marrah", "08-09": "Rev S Marrah", "08-16": "Rev Felix Kachimanga", "08-23": "Deaconess Angela Armstrong", "08-30": "Elder Abu Brima",
+            "09-06": "Rev S Marrah", "09-13": "Rev S Marrah", "09-20": "Rev Felix Kachimanga", "09-27": "Elder Paul Luke",
+            "10-04": "Rev S Marrah", "10-11": "Rev S Marrah", "10-18": "Rev Felix Kachimanga", "10-25": "Elder Georgetia Luke",
+            "11-01": "Rev S Marrah", "11-08": "Rev S Marrah", "11-15": "Rev Felix Kachimanga", "11-22": "Elder Chantal Kachimanga", "11-29": "Rev Felix Kachimanga",
+            "12-06": "Rev S Marrah", "12-13": "Rev S Marrah", "12-20": "Rev Felix Kachimanga", "12-27": "Elder Essie Marrah"
+        };
+
+        const leaders = ["Rev Felix", "Rev Marrah", "Rev Komba", "Mama Essie", "Elder Essie", "Elder Luke", "Elder Georgitia", "Elder Chantal", "Deaconess Armstrong", "Elder Brima", "Sister Matilda", "Sister Faith"];
+        const wednesdayLeaders = leaders.map((_, i) => leaders[i % 12]);
+        const thursdayLeaders = Array.from({ length: 53 }, (_, i) => leaders[(i + 6) % 12]);
+        const bibleStudyLeaders = ["Rev Felix", ...Array.from({ length: 39 }, (_, i) => leaders[(i + 1) % 12])];
+        const halfNightFacilitators = {
+            "01-31": ["Sister Matilda", "Rev Marrah"], "02-27": ["Rev Felix", "Elder Essie"], "03-27": ["Mama Essie", "Sister Faith"],
+            "04-24": ["Rev Komba", "Rev Marrah"], "05-29": ["Sister Matilda", "Deaconess Armstrong"], "06-26": ["Rev Marrah", "Elder Brima"],
+            "07-31": ["Elder Georgitia", "Rev Felix"], "08-28": ["Rev Felix", "Rev Marrah"], "09-25": ["Mama Essie", "Sister Faith"],
+            "10-30": ["Deaconess Armstrong", "Elder Brima"], "11-27": ["Rev Felix", "Deaconess Armstrong"], "12-25": ["Mama Essie", "Sister Matilda"]
+        };
+
+        function countWeekdayOccurrences(d, targetDay) {
+            let count = 0;
+            const startDate = new Date(d.getFullYear(), 0, 1);
+            for (let i = 0; i <= Math.floor((d - startDate) / (1000 * 60 * 60 * 24)); i++) {
+                const checkDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + i);
+                if (checkDate.getDay() === targetDay) count++;
+            }
+            return count - 1;
+        }
+
+        function generateActivities(date) {
+            const activities = [];
+            const dayOfWeek = date.getDay();
+            const dayOfMonth = date.getDate();
+            const month = date.getMonth();
+            const year = date.getFullYear();
+
+            const lastDay = new Date(year, month + 1, 0).getDate();
+            const lastFriday = new Date(year, month, lastDay);
+            while (lastFriday.getDay() !== 5) lastFriday.setDate(lastFriday.getDate() - 1);
+            const isLastFriday = dayOfMonth === lastFriday.getDate();
+
+            // SUNDAY
+            if (dayOfWeek === 0) {
+                const dateKey = `${String(month + 1).padStart(2, '0')}-${String(dayOfMonth).padStart(2, '0')}`;
+                const preacher = preachingRoster[dateKey] || "Rev S Marrah";
+                const thirdSunday = Math.ceil(dayOfMonth / 7) === 3;
+                const nextMonth = new Date(year, month + 1, 1);
+                const lastDayOfMonth = new Date(nextMonth.getFullYear(), nextMonth.getMonth(), 0).getDate();
+                const isLastSunday = dayOfMonth > lastDayOfMonth - 7;
+                const breakfastMonths = [0, 3, 6, 9];
+                const isBreakfastSunday = thirdSunday && breakfastMonths.includes(month);
+
+                // Always add Sunday Service with preacher
+                activities.push({ title: "Sunday Service", time: "11:00 AM - 1:00 PM", type: "service", leader: preacher });
+
+                // Add special activities on 3rd Sunday (non-breakfast)
+                if (thirdSunday && !isBreakfastSunday) {
+                    activities.push({ title: "Communion Sunday", time: "11:00 AM - 1:00 PM", type: "service" });
+                    activities.push({ title: "Mission Sunday", time: "11:00 AM - 1:00 PM", type: "service" });
+                }
+
+                // Add Breakfast Sunday
+                if (isBreakfastSunday) {
+                    activities.push({ title: "Breakfast Sunday", time: "11:00 AM - 1:00 PM", type: "service" });
+                }
+
+                // Add Evangelism Sunday
+                if (isLastSunday) {
+                    activities.push({ title: "Evangelism Sunday", type: "service" });
+                }
+            }
+
+            // WEDNESDAY
+            if (dayOfWeek === 3) {
+                const occurrenceNum = countWeekdayOccurrences(date, 3);
+                activities.push({
+                    title: "Atmosphere of Worship 1",
+                    time: "8:30 PM - 9:00 PM",
+                    type: "worship",
+                    leader: wednesdayLeaders[occurrenceNum % 12]
+                });
+            }
+
+            // THURSDAY
+            if (dayOfWeek === 4) {
+                const occurrenceNum = countWeekdayOccurrences(date, 4);
+                activities.push({
+                    title: "Atmosphere of Worship 2",
+                    time: "8:30 PM - 9:00 PM",
+                    type: "worship",
+                    leader: thursdayLeaders[occurrenceNum % 12]
+                });
+            }
+
+            // FRIDAY
+            if (dayOfWeek === 5) {
+                if (isLastFriday) {
+                    const dateKey = `${String(month + 1).padStart(2, '0')}-${String(dayOfMonth).padStart(2, '0')}`;
+                    const facilitators = halfNightFacilitators[dateKey] || ["Rev Felix", "Rev Marrah"];
+                    activities.push({
+                        title: "Half-night of Prayer",
+                        time: "9:30 PM - 11:30 PM",
+                        type: "prayer",
+                        leader: facilitators.join(" & ")
+                    });
+                } else {
+                    const totalFridayOccurrence = countWeekdayOccurrences(date, 5);
+                    let lastFridaysBefore = 0;
+                    for (let m = 0; m <= month; m++) {
+                        let nextMonthDate = new Date(year, m + 1, 1);
+                        let lastDayOfMonth = new Date(nextMonthDate.getFullYear(), nextMonthDate.getMonth(), 0).getDate();
+                        let checkLastFri = new Date(year, m, lastDayOfMonth);
+                        while (checkLastFri.getDay() !== 5) checkLastFri.setDate(checkLastFri.getDate() - 1);
+                        if (checkLastFri < date) lastFridaysBefore++;
+                    }
+                    const bibleStudyIndex = totalFridayOccurrence - lastFridaysBefore;
+                    activities.push({
+                        title: "Bible Studies",
+                        time: "8:00 PM - 9:00 PM",
+                        type: "study",
+                        leader: bibleStudyLeaders[bibleStudyIndex % 40]
+                    });
+                }
+            }
+
+            // SATURDAY
+            if (dayOfWeek === 6) {
+                activities.push({
+                    title: "Bible Studies for Children and Young Adults",
+                    time: "12:30 PM - 1:30 PM",
+                    type: "youth",
+                    leader: "Rev Felix"
+                });
+            }
+
+            return activities;
+        }
+
+        function renderCalendar() {
+            const grid = document.getElementById('calendarGrid');
+            grid.innerHTML = '';
+
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            const firstDay = new Date(year, month, 1).getDay();
+            const lastDate = new Date(year, month + 1, 0).getDate();
+
+            document.getElementById('monthName').textContent = currentDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+
+            // Empty cells
+            for (let i = 0; i < firstDay; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'calendar-day empty';
+                grid.appendChild(cell);
+            }
+
+            // Days with events
+            for (let day = 1; day <= lastDate; day++) {
+                const date = new Date(year, month, day);
+                const activities = generateActivities(date);
+                
+                const cell = document.createElement('div');
+                cell.className = activities.length > 0 ? 'calendar-day has-events' : 'calendar-day';
+                
+                let html = `<div class="day-number">${day}</div>`;
+                
+                activities.forEach(activity => {
+                    html += `<div class="activity ${activity.type}">
+                        <div class="activity-title">${activity.title}</div>
+                        ${activity.time ? `<div class="activity-time">${activity.time}</div>` : ''}
+                        ${activity.leader ? `<div class="activity-leader">🎤 ${activity.leader}</div>` : ''}
+                        <div class="activity-zoom">Live & via Zoom</div>
+                    </div>`;
+                });
+                
+                cell.innerHTML = html;
+                grid.appendChild(cell);
+            }
+        }
+
+        function prevMonth() {
+            currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - 1);
+            renderCalendar();
+        }
+
+        function nextMonth() {
+            currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1);
+            renderCalendar();
+        }
+
+        // Initial render
+        renderCalendar();
+    </script>
+</body>
+</html>
