@@ -28,9 +28,7 @@
         }
         header h1 { font-size: 22px; margin-bottom: 8px; font-weight: bold; }
         header p { font-size: 14px; color: #64748b; }
-        
         .container { max-width: 1200px; margin: 0 auto; padding: 15px; }
-        
         .hero {
             background: white;
             padding: 25px;
@@ -42,7 +40,6 @@
         .hero h2 { font-size: 28px; margin-bottom: 12px; }
         .hero .tagline { font-size: 18px; color: #475569; margin-bottom: 10px; font-weight: bold; }
         .hero p { font-size: 15px; color: #64748b; }
-        
         .calendar-section {
             background: white;
             padding: 20px;
@@ -51,7 +48,6 @@
             margin-bottom: 20px;
         }
         .calendar-section h3 { font-size: 24px; margin-bottom: 15px; font-weight: bold; }
-        
         .month-controls {
             display: flex;
             justify-content: space-between;
@@ -72,15 +68,8 @@
         }
         .month-controls button:hover { background: #334155; }
         .month-name { font-size: 20px; text-align: center; flex: 1; font-weight: bold; }
-        
-        /* DESKTOP VIEW - Calendar Grid */
-        .desktop-view {
-            display: block;
-        }
-        .mobile-view {
-            display: none;
-        }
-        
+        .desktop-view { display: block; }
+        .mobile-view { display: none; }
         .day-headers {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
@@ -96,11 +85,7 @@
             background: #f1f5f9;
             border-radius: 6px;
         }
-        .calendar-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 8px;
-        }
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
         .calendar-day {
             border: 2px solid #e2e8f0;
             border-radius: 8px;
@@ -112,7 +97,6 @@
         .calendar-day.empty { background: transparent; border: none; }
         .calendar-day.has-events { background: #fef3c7; border-color: #fbbf24; }
         .day-number { font-weight: bold; font-size: 16px; margin-bottom: 8px; }
-        
         .activity {
             font-size: 11px;
             padding: 6px;
@@ -130,11 +114,7 @@
         .activity-time { font-weight: 600; margin: 1px 0; font-size: 10px; }
         .activity-leader { margin-top: 1px; border-top: 1px solid; padding-top: 1px; font-weight: bold; font-size: 10px; }
         .activity-zoom { font-style: italic; font-size: 9px; }
-        
-        /* MOBILE VIEW - List Format */
-        .activity-list {
-            list-style: none;
-        }
+        .activity-list { list-style: none; }
         .activity-list-item {
             background: white;
             border-left: 5px solid #1e293b;
@@ -148,13 +128,11 @@
         .activity-list-item.prayer { border-left-color: #2563eb; background: #eff6ff; }
         .activity-list-item.study { border-left-color: #16a34a; background: #f0fdf4; }
         .activity-list-item.youth { border-left-color: #ec4899; background: #fdf2f8; }
-        
         .activity-list-item-date { font-size: 12px; color: #64748b; margin-bottom: 5px; }
         .activity-list-item-title { font-size: 18px; font-weight: bold; margin-bottom: 8px; }
         .activity-list-item-time { font-size: 14px; font-weight: 600; margin-bottom: 5px; }
         .activity-list-item-leader { font-size: 14px; margin: 5px 0; }
         .activity-list-item-zoom { font-size: 12px; color: #64748b; font-style: italic; }
-        
         footer {
             background: #1e293b;
             color: white;
@@ -164,47 +142,22 @@
         }
         footer h3 { margin-bottom: 10px; font-size: 20px; }
         footer p { font-size: 14px; color: #cbd5e1; margin: 6px 0; }
-        
-        /* TABLET/DESKTOP */
-        @media (min-width: 769px) {
-            .desktop-view { display: block; }
-            .mobile-view { display: none; }
-        }
-        
-        /* MOBILE */
         @media (max-width: 768px) {
             header h1 { font-size: 20px; }
             header p { font-size: 12px; }
-            
             .desktop-view { display: none; }
             .mobile-view { display: block; }
-            
-            .month-controls {
-                gap: 8px;
-                margin-bottom: 20px;
-            }
-            .month-controls button {
-                padding: 10px 14px;
-                font-size: 14px;
-            }
+            .month-controls { gap: 8px; }
+            .month-controls button { padding: 10px 14px; font-size: 14px; }
             .month-name { font-size: 18px; }
-            
-            .hero {
-                padding: 15px;
-                margin-bottom: 15px;
-            }
-            .hero h2 { font-size: 20px; margin-bottom: 8px; }
+            .hero { padding: 15px; }
+            .hero h2 { font-size: 20px; }
             .hero .tagline { font-size: 16px; }
             .hero p { font-size: 13px; }
-            
-            .activity-list-item {
-                padding: 12px;
-                margin-bottom: 10px;
-            }
+            .activity-list-item { padding: 12px; margin-bottom: 10px; }
             .activity-list-item-title { font-size: 16px; }
             .activity-list-item-time { font-size: 13px; }
             .activity-list-item-leader { font-size: 13px; }
-            
             footer { padding: 15px; }
             footer h3 { font-size: 18px; }
             footer p { font-size: 12px; }
@@ -233,7 +186,6 @@
                 <button onclick="nextMonth()">Next ▶</button>
             </div>
 
-            <!-- DESKTOP VIEW: Calendar Grid -->
             <div class="desktop-view">
                 <div class="day-headers">
                     <div class="day-header">Sun</div>
@@ -247,7 +199,6 @@
                 <div class="calendar-grid" id="calendarGrid"></div>
             </div>
 
-            <!-- MOBILE VIEW: List Format -->
             <div class="mobile-view">
                 <ul class="activity-list" id="activityList"></ul>
             </div>
@@ -360,81 +311,4 @@
                         let nextMonthDate = new Date(year, m + 1, 1);
                         let lastDayOfMonth = new Date(nextMonthDate.getFullYear(), nextMonthDate.getMonth(), 0).getDate();
                         let checkLastFri = new Date(year, m, lastDayOfMonth);
-                        while (checkLastFri.getDay() !== 5) checkLastFri.setDate(checkLastFri.getDate() - 1);
-                        if (checkLastFri < date) lastFridaysBefore++;
-                    }
-                    const bibleStudyIndex = totalFridayOccurrence - lastFridaysBefore;
-                    activities.push({ title: "Bible Studies", time: "8:00 PM - 9:00 PM", type: "study", leader: bibleStudyLeaders[bibleStudyIndex % 40] });
-                }
-            }
-
-            if (dayOfWeek === 6) {
-                activities.push({ title: "Bible Studies for Children and Young Adults", time: "12:30 PM - 1:30 PM", type: "youth", leader: "Rev Felix" });
-            }
-
-            return activities;
-        }
-
-        function renderCalendar() {
-            const grid = document.getElementById('calendarGrid');
-            const listEl = document.getElementById('activityList');
-            grid.innerHTML = '';
-            listEl.innerHTML = '';
-
-            const year = currentDate.getFullYear();
-            const month = currentDate.getMonth();
-            const firstDay = new Date(year, month, 1).getDay();
-            const lastDate = new Date(year, month + 1, 0).getDate();
-
-            document.getElementById('monthName').textContent = currentDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
-
-            for (let i = 0; i < firstDay; i++) {
-                const cell = document.createElement('div');
-                cell.className = 'calendar-day empty';
-                grid.appendChild(cell);
-            }
-
-            for (let day = 1; day <= lastDate; day++) {
-                const date = new Date(year, month, day);
-                const activities = generateActivities(date);
-                
-                // Desktop view
-                const cell = document.createElement('div');
-                cell.className = activities.length > 0 ? 'calendar-day has-events' : 'calendar-day';
-                let html = `<div class="day-number">${day}</div>`;
-                activities.forEach(activity => {
-                    html += `<div class="activity ${activity.type}"><div class="activity-title">${activity.title}</div>${activity.time ? `<div class="activity-time">${activity.time}</div>` : ''}${activity.leader ? `<div class="activity-leader">🎤 ${activity.leader}</div>` : ''}<div class="activity-zoom">Live & Zoom</div></div>`;
-                });
-                cell.innerHTML = html;
-                grid.appendChild(cell);
-
-                // Mobile view
-                activities.forEach(activity => {
-                    const li = document.createElement('li');
-                    li.className = `activity-list-item ${activity.type}`;
-                    li.innerHTML = `
-                        <div class="activity-list-item-date">${date.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}</div>
-                        <div class="activity-list-item-title">${activity.title}</div>
-                        ${activity.time ? `<div class="activity-list-item-time">⏰ ${activity.time}</div>` : ''}
-                        ${activity.leader ? `<div class="activity-list-item-leader">🎤 ${activity.leader}</div>` : ''}
-                        <div class="activity-list-item-zoom">Live & via Zoom</div>
-                    `;
-                    listEl.appendChild(li);
-                });
-            }
-        }
-
-        function prevMonth() {
-            currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - 1);
-            renderCalendar();
-        }
-
-        function nextMonth() {
-            currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1);
-            renderCalendar();
-        }
-
-        renderCalendar();
-    </script>
-</body>
-</html>
+                        while (checkLastFri.getDay() !== 5) checkLastFri.setDate(checkLastFri.get
