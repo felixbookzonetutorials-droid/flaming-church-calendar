@@ -50,11 +50,7 @@
         header h1 { font-size: 22px; margin-bottom: 0; font-weight: bold; flex: 1; }
         header p { font-size: 12px; color: var(--text-secondary); flex: 1; }
         
-        .header-buttons {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-        }
+        .header-buttons { display: flex; gap: 8px; align-items: center; }
         .header-buttons button {
             background: var(--accent);
             color: white;
@@ -159,11 +155,7 @@
             gap: 15px;
             margin-bottom: 20px;
         }
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+        .legend-item { display: flex; align-items: center; gap: 10px; }
         .legend-box {
             width: 30px;
             height: 30px;
@@ -283,9 +275,7 @@
         .info-card h4 { margin-bottom: 10px; font-size: 18px; }
         .info-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
         
-        .form-group {
-            margin-bottom: 15px;
-        }
+        .form-group { margin-bottom: 15px; }
         .form-group label {
             display: block;
             margin-bottom: 5px;
@@ -468,7 +458,7 @@
                 <div class="info-grid">
                     <div class="info-card">
                         <h4>👨‍💼 Leadership</h4>
-                        <p><strong>Lead Pastor:</strong> Rev S Marrah<br><strong>Associate Pastor:</strong> Rev Felix Kachimanga<br><strong>Youth Leader:</strong> Rev Komba</p>
+                        <p><strong>Lead Pastor:</strong> Rev S Marrah<br><strong>Associate Pastor:</strong> Rev Felix Kachimanga</p>
                     </div>
                     <div class="info-card">
                         <h4>📍 Location</h4>
@@ -488,23 +478,28 @@
 
         <div id="attendance" class="tab-content">
             <div class="section">
-                <h3>Attendance Tips</h3>
+                <h3>Attendance Tips & Weekly Program</h3>
                 <div class="info-grid">
                     <div class="info-card">
+                        <h4>📅 Weekly Program</h4>
+                        <p><strong>Sunday:</strong> Service 11:00 AM - 1:00 PM<br>
+                        <strong>Wednesday:</strong> Prayers 8:30 PM - 9:00 PM<br>
+                        <strong>Thursday:</strong> Prayers 8:30 PM - 9:00 PM<br>
+                        <strong>Friday:</strong> Bible Studies 8:00 PM - 9:00 PM<br>
+                        <strong>Last Friday:</strong> Half-night Prayer 9:30 PM - 11:30 PM<br>
+                        <strong>Saturday:</strong> Children & Young Adults 12:30 PM - 1:30 PM</p>
+                    </div>
+                    <div class="info-card">
                         <h4>⏰ Arrival Time</h4>
-                        <p><strong>Sunday Services:</strong> 10:45 AM<br><strong>Mid-week:</strong> 8:15 PM<br><strong>Bible Studies:</strong> 7:45 PM</p>
+                        <p><strong>Sunday Services:</strong> 10:45 AM<br><strong>Mid-week Prayers:</strong> 8:15 PM<br><strong>Bible Studies:</strong> 7:45 PM</p>
                     </div>
                     <div class="info-card">
                         <h4>🎒 What to Bring</h4>
                         <p>• Your Bible<br>• Notebook & pen<br>• A friend!<br>• Open heart</p>
                     </div>
                     <div class="info-card">
-                        <h4>🅿️ Parking</h4>
-                        <p>Free parking available<br>• Springfield Youth Club<br>• Street parking nearby<br>• Accessible spots</p>
-                    </div>
-                    <div class="info-card">
-                        <h4>🤝 Getting Involved</h4>
-                        <p>• Volunteer for ministry<br>• Join a small group<br>• Attend training<br>• Serve in youth ministry</p>
+                        <h4>🅿️ Parking & Location</h4>
+                        <p>Free parking available<br>• Springfield Youth Club<br>• Street parking nearby<br>• Accessible spots available</p>
                     </div>
                 </div>
             </div>
@@ -557,19 +552,60 @@
         const allActivitiesCache = [];
         const januaryExclusions = ['Rev S Marrah', 'Rev Marrah', 'Elder Essie'];
 
+        // EXACT PREACHING ROSTER FROM THE DOCUMENT
         const preachers = {
-            "01-04": "Rev S Marrah", "01-11": "Rev S Marrah", "01-18": "Rev Felix Kachimanga", "01-25": "Deaconess Angela Armstrong",
-            "02-01": "Rev S Marrah", "02-08": "Rev S Marrah", "02-15": "Rev Felix Kachimanga", "02-22": "Elder Abu Brima",
-            "03-01": "Rev S Marrah", "03-08": "Rev S Marrah", "03-15": "Rev Felix Kachimanga", "03-22": "Elder Essie Marrah", "03-29": "Elder Paul Luke",
-            "04-05": "Rev S Marrah", "04-12": "Rev S Marrah", "04-19": "Rev Felix Kachimanga", "04-26": "Sis Matilda Wilson",
-            "05-03": "Rev S Marrah", "05-10": "Rev S Marrah", "05-17": "Rev Felix Kachimanga", "05-24": "Elder Georgetia Luke", "05-31": "Sis Faith Orafu",
-            "06-07": "Rev S Marrah", "06-14": "Rev S Marrah", "06-21": "Rev Felix Kachimanga", "06-28": "Elder Chantal Kachimanga",
-            "07-05": "Rev S Marrah", "07-12": "Rev S Marrah", "07-19": "Rev Felix Kachimanga", "07-26": "Elder Essie Marrah",
-            "08-02": "Rev S Marrah", "08-09": "Rev S Marrah", "08-16": "Rev Felix Kachimanga", "08-23": "Deaconess Angela Armstrong", "08-30": "Elder Abu Brima",
-            "09-06": "Rev S Marrah", "09-13": "Rev S Marrah", "09-20": "Rev Felix Kachimanga", "09-27": "Elder Paul Luke",
-            "10-04": "Rev S Marrah", "10-11": "Rev S Marrah", "10-18": "Rev Felix Kachimanga", "10-25": "Elder Georgetia Luke",
-            "11-01": "Rev S Marrah", "11-08": "Rev S Marrah", "11-15": "Rev Felix Kachimanga", "11-22": "Elder Chantal Kachimanga", "11-29": "Rev Felix Kachimanga",
-            "12-06": "Rev S Marrah", "12-13": "Rev S Marrah", "12-20": "Rev Felix Kachimanga", "12-27": "Elder Essie Marrah"
+            "01-04": "Rev S Marrah",
+            "01-11": "Rev S Marrah",
+            "01-18": "Rev Felix Kachimanga",
+            "01-25": "Deaconess Angela Armstrong",
+            "02-01": "Rev S Marrah",
+            "02-08": "Rev S Marrah",
+            "02-15": "Rev Felix Kachimanga",
+            "02-22": "Elder Abu Brima",
+            "03-01": "Rev S Marrah",
+            "03-08": "Rev S Marrah",
+            "03-15": "Rev Felix Kachimanga",
+            "03-22": "Elder Essie Marrah",
+            "03-29": "Elder Paul Luke",
+            "04-05": "Rev S Marrah",
+            "04-12": "Rev S Marrah",
+            "04-19": "Rev Felix Kachimanga",
+            "04-26": "Sis Matilda Wilson",
+            "05-03": "Rev S Marrah",
+            "05-10": "Rev S Marrah",
+            "05-17": "Rev Felix Kachimanga",
+            "05-24": "Elder Georgetia Luke",
+            "05-31": "Sis Faith Orafu",
+            "06-07": "Rev S Marrah",
+            "06-14": "Rev S Marrah",
+            "06-21": "Rev Felix Kachimanga",
+            "06-28": "Elder Chantal Kachimanga",
+            "07-05": "Rev S Marrah",
+            "07-12": "Rev S Marrah",
+            "07-19": "Rev Felix Kachimanga",
+            "07-26": "Elder Essie Marrah",
+            "08-02": "Rev S Marrah",
+            "08-09": "Rev S Marrah",
+            "08-16": "Rev Felix Kachimanga",
+            "08-23": "Deaconess Angela Armstrong",
+            "08-30": "Elder Abu Brima",
+            "09-06": "Rev S Marrah",
+            "09-13": "Rev S Marrah",
+            "09-20": "Rev Felix Kachimanga",
+            "09-27": "Elder Paul Luke",
+            "10-04": "Rev S Marrah",
+            "10-11": "Rev S Marrah",
+            "10-18": "Rev Felix Kachimanga",
+            "10-25": "Elder Georgetia Luke",
+            "11-01": "Rev S Marrah",
+            "11-08": "Rev S Marrah",
+            "11-15": "Rev Felix Kachimanga",
+            "11-22": "Elder Chantal Kachimanga",
+            "11-29": "Rev Felix Kachimanga",
+            "12-06": "Rev S Marrah",
+            "12-13": "Rev S Marrah",
+            "12-20": "Rev Felix Kachimanga",
+            "12-27": "Elder Essie Marrah"
         };
 
         const allLeaders = ["Rev Felix", "Rev Marrah", "Rev Komba", "Mama Essie", "Elder Essie", "Elder Luke", "Elder Georgitia", "Elder Chantal", "Deaconess Armstrong", "Elder Brima", "Sister Matilda", "Sister Faith"];
@@ -588,58 +624,43 @@
             const dateNum = date.getDate();
             const month = date.getMonth();
             const year = date.getFullYear();
-            
             const dateKey = String(month + 1).padStart(2, '0') + '-' + String(dateNum).padStart(2, '0');
             
+            // SUNDAY
             if (day === 0) {
-                const preacher = preachers[dateKey] || "Rev S Marrah";
-                const isThird = Math.ceil(dateNum / 7) === 3;
-                const lastDay = new Date(year, month + 1, 0).getDate();
-                const isLast = dateNum > lastDay - 7;
-                const breakfastMonths = [0, 3, 6, 9];
-                const isBreakfast = isThird && breakfastMonths.includes(month);
-                
-                activities.push({ title: "Sunday Service", time: "11:00 AM - 1:00 PM", type: "service", leader: preacher, date: date });
-                
-                if (isThird && !isBreakfast) {
-                    activities.push({ title: "Communion Sunday", time: "11:00 AM - 1:00 PM", type: "service", date: date });
-                    activities.push({ title: "Mission Sunday", time: "11:00 AM - 1:00 PM", type: "service", date: date });
-                }
-                if (isBreakfast) {
-                    activities.push({ title: "Breakfast Sunday", time: "11:00 AM - 1:00 PM", type: "service", date: date });
-                }
-                if (isLast) {
-                    activities.push({ title: "Evangelism Sunday", type: "service", date: date });
+                const preacher = preachers[dateKey];
+                if (preacher) {
+                    activities.push({ title: "Sunday Service", time: "11:00 AM - 1:00 PM", type: "service", leader: preacher, date: date });
                 }
             }
             
+            // WEDNESDAY
             if (day === 3) {
                 const occurrence = Math.floor((dateNum - 1) / 7);
                 let leader = getLeader(occurrence, month);
                 activities.push({ title: "Atmosphere of Worship 1", time: "8:30 PM - 9:00 PM", type: "worship", leader: leader, date: date });
             }
             
+            // THURSDAY
             if (day === 4) {
                 const occurrence = Math.floor((dateNum - 1) / 7);
                 let leader = getLeader(occurrence + 6, month);
                 activities.push({ title: "Atmosphere of Worship 2", time: "8:30 PM - 9:00 PM", type: "worship", leader: leader, date: date });
             }
             
+            // FRIDAY
             if (day === 5) {
                 const lastDay = new Date(year, month + 1, 0).getDate();
                 let isLastFri = dateNum > lastDay - 7 && day === 5;
                 
                 if (isLastFri) {
                     const halfNightLeaders = {
-                        "01-31": "Sister Matilda & Rev Marrah", "02-27": "Rev Felix & Elder Essie", "03-27": "Mama Essie & Sister Faith",
+                        "01-31": "Sister Matilda & Rev Komba", "02-27": "Rev Felix & Elder Essie", "03-27": "Mama Essie & Sister Faith",
                         "04-24": "Rev Komba & Rev Marrah", "05-29": "Sister Matilda & Deaconess Armstrong", "06-26": "Rev Marrah & Elder Brima",
                         "07-31": "Elder Georgitia & Rev Felix", "08-28": "Rev Felix & Rev Marrah", "09-25": "Mama Essie & Sister Faith",
                         "10-30": "Deaconess Armstrong & Elder Brima", "11-27": "Rev Felix & Deaconess Armstrong", "12-25": "Mama Essie & Sister Matilda"
                     };
                     let leader = halfNightLeaders[dateKey] || "Rev Felix & Rev Marrah";
-                    if (month === 0) {
-                        leader = "Sister Matilda & Rev Komba";
-                    }
                     activities.push({ title: "Half-night of Prayer", time: "9:30 PM - 11:30 PM", type: "prayer", leader: leader, date: date });
                 } else {
                     const occurrence = Math.floor((dateNum - 1) / 7);
@@ -658,6 +679,7 @@
                 }
             }
             
+            // SATURDAY
             if (day === 6) {
                 activities.push({ title: "Bible Studies for Children and Young Adults", time: "12:30 PM - 1:30 PM", type: "youth", leader: "Rev Felix", date: date });
             }
@@ -672,7 +694,6 @@
             const lastDate = new Date(year, month + 1, 0).getDate();
             
             document.getElementById('monthSelect').value = month;
-            
             const calendarDays = document.getElementById('calendarDays');
             calendarDays.innerHTML = '';
             const listContainer = document.getElementById('activityListContainer');
@@ -688,12 +709,10 @@
             for (let day = 1; day <= lastDate; day++) {
                 const date = new Date(year, month, day);
                 const acts = getActivities(date);
-                
                 acts.forEach(a => allActivitiesCache.push(a));
                 
                 const cell = document.createElement('div');
                 cell.className = 'calendar-day' + (acts.length > 0 ? ' has-events' : '');
-                
                 let html = '<div class="day-number">' + day + '</div>';
                 acts.forEach(a => {
                     html += '<div class="activity ' + a.type + '">';
@@ -702,7 +721,6 @@
                     if (a.leader) html += '<div class="activity-leader">🎤 ' + a.leader + '</div>';
                     html += '</div>';
                 });
-                
                 cell.innerHTML = html;
                 calendarDays.appendChild(cell);
                 
@@ -752,9 +770,7 @@
             localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
         }
 
-        function printCalendar() {
-            window.print();
-        }
+        function printCalendar() { window.print(); }
 
         function shareWhatsApp() {
             const text = "Check out Flaming Bible Church UK North London's 2026 Ministry Calendar!";
@@ -769,25 +785,18 @@
         }
 
         function copyLink() {
-            const link = window.location.href;
-            navigator.clipboard.writeText(link).then(() => {
+            navigator.clipboard.writeText(window.location.href).then(() => {
                 alert('Link copied to clipboard!');
             });
         }
 
         function exportToIcal() {
             let ical = 'BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Flaming Bible Church//Church Calendar//EN\n';
-            
             allActivitiesCache.forEach(activity => {
                 const date = activity.date;
                 const dateStr = date.getFullYear() + String(date.getMonth() + 1).padStart(2, '0') + String(date.getDate()).padStart(2, '0');
-                ical += 'BEGIN:VEVENT\n';
-                ical += 'DTSTART:' + dateStr + '\n';
-                ical += 'SUMMARY:' + activity.title + '\n';
-                ical += 'DESCRIPTION:' + (activity.leader ? 'Leader: ' + activity.leader : '') + '\n';
-                ical += 'END:VEVENT\n';
+                ical += 'BEGIN:VEVENT\nDTSTART:' + dateStr + '\nSUMMARY:' + activity.title + '\nDESCRIPTION:' + (activity.leader ? 'Leader: ' + activity.leader : '') + '\nEND:VEVENT\n';
             });
-            
             ical += 'END:VCALENDAR';
             
             const blob = new Blob([ical], { type: 'text/calendar' });
@@ -797,8 +806,7 @@
             link.click();
         }
 
-        function filterActivities() {
-        }
+        function filterActivities() {}
 
         function submitPrayerRequest(event) {
             event.preventDefault();
