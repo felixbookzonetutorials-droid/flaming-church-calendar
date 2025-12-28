@@ -11,7 +11,6 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-        
         :root {
             --bg-primary: #ffffff;
             --bg-secondary: #f1f5f9;
@@ -20,7 +19,6 @@
             --border-color: #e2e8f0;
             --accent: #1e293b;
         }
-        
         body.dark-mode {
             --bg-primary: #1e293b;
             --bg-secondary: #0f172a;
@@ -28,14 +26,12 @@
             --text-secondary: #cbd5e1;
             --border-color: #334155;
         }
-        
         body {
             font-family: Georgia, 'Times New Roman', serif;
             background: var(--bg-secondary);
             color: var(--text-primary);
             transition: background 0.3s, color 0.3s;
         }
-        
         header {
             background: var(--bg-primary);
             border-bottom: 3px solid var(--accent);
@@ -49,7 +45,6 @@
         }
         header h1 { font-size: 22px; margin-bottom: 0; font-weight: bold; flex: 1; }
         header p { font-size: 12px; color: var(--text-secondary); flex: 1; }
-        
         .header-buttons { display: flex; gap: 8px; align-items: center; }
         .header-buttons button {
             background: var(--accent);
@@ -62,9 +57,7 @@
             font-weight: bold;
         }
         .header-buttons button:hover { opacity: 0.9; }
-        
         .container { max-width: 1200px; margin: 0 auto; padding: 15px; }
-        
         .tabs {
             display: flex;
             gap: 10px;
@@ -88,10 +81,8 @@
             border-color: var(--accent);
         }
         .tab-button:hover { border-color: var(--accent); }
-        
         .tab-content { display: none; }
         .tab-content.active { display: block; }
-        
         .hero {
             background: var(--bg-primary);
             padding: 25px;
@@ -103,7 +94,6 @@
         .hero h2 { font-size: 28px; margin-bottom: 12px; }
         .hero .tagline { font-size: 18px; color: var(--text-secondary); margin-bottom: 10px; font-weight: bold; }
         .hero p { font-size: 15px; color: var(--text-secondary); }
-        
         .section {
             background: var(--bg-primary);
             padding: 20px;
@@ -112,7 +102,6 @@
             margin-bottom: 20px;
         }
         .section h3 { font-size: 24px; margin-bottom: 15px; font-weight: bold; }
-        
         .controls-bar {
             display: flex;
             justify-content: space-between;
@@ -132,7 +121,6 @@
             font-size: 14px;
         }
         .controls-bar button:hover { opacity: 0.9; }
-        
         .month-selector {
             background: var(--bg-secondary);
             padding: 15px;
@@ -148,7 +136,6 @@
             font-size: 14px;
             cursor: pointer;
         }
-        
         .color-legend {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -163,15 +150,13 @@
             border: 2px solid;
             flex-shrink: 0;
         }
-        
         .search-filter {
             display: flex;
             gap: 10px;
             margin-bottom: 20px;
             flex-wrap: wrap;
         }
-        .search-filter input,
-        .search-filter select {
+        .search-filter input, .search-filter select {
             padding: 10px;
             border-radius: 6px;
             border: 2px solid var(--border-color);
@@ -180,7 +165,6 @@
             flex: 1;
             min-width: 150px;
         }
-        
         .share-buttons {
             display: flex;
             gap: 10px;
@@ -198,7 +182,6 @@
             color: var(--text-primary);
         }
         .share-btn:hover { background: var(--accent); color: white; border-color: var(--accent); }
-        
         .calendar-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
@@ -230,7 +213,6 @@
         .calendar-day.empty { background: transparent; border: none; }
         .calendar-day.has-events { background: #fef3c7; border-color: #fbbf24; }
         .day-number { font-weight: bold; font-size: 14px; margin-bottom: 6px; }
-        
         .activity {
             font-size: 9px;
             padding: 4px;
@@ -244,7 +226,6 @@
         .activity.prayer { background: #dbeafe; border-color: #2563eb; }
         .activity.study { background: #dcfce7; border-color: #16a34a; }
         .activity.youth { background: #fbcfe8; border-color: #ec4899; }
-        
         .activity-list { list-style: none; }
         .activity-list-item {
             background: var(--bg-primary);
@@ -259,7 +240,6 @@
         .activity-list-item.prayer { border-left-color: #2563eb; }
         .activity-list-item.study { border-left-color: #16a34a; }
         .activity-list-item.youth { border-left-color: #ec4899; }
-        
         .info-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -274,15 +254,13 @@
         }
         .info-card h4 { margin-bottom: 10px; font-size: 18px; }
         .info-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
-        
         .form-group { margin-bottom: 15px; }
         .form-group label {
             display: block;
             margin-bottom: 5px;
             font-weight: bold;
         }
-        .form-group input,
-        .form-group textarea {
+        .form-group input, .form-group textarea {
             width: 100%;
             padding: 10px;
             border-radius: 6px;
@@ -303,7 +281,6 @@
             font-size: 14px;
         }
         .form-group button:hover { opacity: 0.9; }
-        
         footer {
             background: var(--accent);
             color: white;
@@ -313,7 +290,6 @@
         }
         footer h3 { margin-bottom: 10px; font-size: 20px; }
         footer p { font-size: 14px; color: #cbd5e1; margin: 6px 0; }
-        
         .footer-links {
             margin-top: 20px;
             display: flex;
@@ -327,12 +303,10 @@
             font-size: 14px;
         }
         .footer-links a:hover { text-decoration: underline; }
-        
         @media print {
             header, .tabs, .controls-bar, .search-filter, .share-buttons { display: none; }
             .calendar-day { page-break-inside: avoid; }
         }
-        
         @media (max-width: 768px) {
             header { flex-direction: column; }
             .calendar-day { min-height: 80px; }
@@ -373,28 +347,12 @@
         <div id="calendar" class="tab-content active">
             <div class="section">
                 <h3>Church Calendar 2026</h3>
-                
                 <div class="color-legend">
-                    <div class="legend-item">
-                        <div class="legend-box" style="background: #fef3c7; border-color: #d97706;"></div>
-                        <span>Sunday Services</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-box" style="background: #ede9fe; border-color: #7c3aed;"></div>
-                        <span>Worship Sessions</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-box" style="background: #dbeafe; border-color: #2563eb;"></div>
-                        <span>Prayer Meetings</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-box" style="background: #dcfce7; border-color: #16a34a;"></div>
-                        <span>Bible Studies</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-box" style="background: #fbcfe8; border-color: #ec4899;"></div>
-                        <span>Youth Activities</span>
-                    </div>
+                    <div class="legend-item"><div class="legend-box" style="background: #fef3c7; border-color: #d97706;"></div><span>Sunday Services</span></div>
+                    <div class="legend-item"><div class="legend-box" style="background: #ede9fe; border-color: #7c3aed;"></div><span>Worship Sessions</span></div>
+                    <div class="legend-item"><div class="legend-box" style="background: #dbeafe; border-color: #2563eb;"></div><span>Prayer Meetings</span></div>
+                    <div class="legend-item"><div class="legend-box" style="background: #dcfce7; border-color: #16a34a;"></div><span>Bible Studies</span></div>
+                    <div class="legend-item"><div class="legend-box" style="background: #fbcfe8; border-color: #ec4899;"></div><span>Youth Activities</span></div>
                 </div>
 
                 <div class="search-filter">
@@ -456,22 +414,10 @@
             <div class="section">
                 <h3>About Flaming Bible Church</h3>
                 <div class="info-grid">
-                    <div class="info-card">
-                        <h4>👨‍💼 Leadership</h4>
-                        <p><strong>Lead Pastor:</strong> Rev S Marrah<br><strong>Associate Pastor:</strong> Rev Felix Kachimanga</p>
-                    </div>
-                    <div class="info-card">
-                        <h4>📍 Location</h4>
-                        <p>Anthony Marsh Building<br>Springfield Youth Club<br>Big Hill, Clapton<br>London E5 9HH</p>
-                    </div>
-                    <div class="info-card">
-                        <h4>📞 Contact</h4>
-                        <p>Rev Marrah: 07808 892341<br>Rev Felix: 07722139191</p>
-                    </div>
-                    <div class="info-card">
-                        <h4>🙏 Mission</h4>
-                        <p>A place of fulfilling God's Purpose. We are committed to growing together in faith and serving our community with love.</p>
-                    </div>
+                    <div class="info-card"><h4>👨‍💼 Leadership</h4><p><strong>Lead Pastor:</strong> Rev S Marrah<br><strong>Associate Pastor:</strong> Rev Felix Kachimanga</p></div>
+                    <div class="info-card"><h4>📍 Location</h4><p>Anthony Marsh Building<br>Springfield Youth Club<br>Big Hill, Clapton<br>London E5 9HH</p></div>
+                    <div class="info-card"><h4>📞 Contact</h4><p>Rev Marrah: 07808 892341<br>Rev Felix: 07722139191</p></div>
+                    <div class="info-card"><h4>🙏 Mission</h4><p>A place of fulfilling God's Purpose. We are committed to growing together in faith and serving our community with love.</p></div>
                 </div>
             </div>
         </div>
@@ -480,27 +426,10 @@
             <div class="section">
                 <h3>Attendance Tips & Weekly Program</h3>
                 <div class="info-grid">
-                    <div class="info-card">
-                        <h4>📅 Weekly Program</h4>
-                        <p><strong>Sunday:</strong> Service 11:00 AM - 1:00 PM<br>
-                        <strong>Wednesday:</strong> Prayers 8:30 PM - 9:00 PM<br>
-                        <strong>Thursday:</strong> Prayers 8:30 PM - 9:00 PM<br>
-                        <strong>Friday:</strong> Bible Studies 8:00 PM - 9:00 PM<br>
-                        <strong>Last Friday:</strong> Half-night Prayer 9:30 PM - 11:30 PM<br>
-                        <strong>Saturday:</strong> Children & Young Adults 12:30 PM - 1:30 PM</p>
-                    </div>
-                    <div class="info-card">
-                        <h4>⏰ Arrival Time</h4>
-                        <p><strong>Sunday Services:</strong> 10:45 AM<br><strong>Mid-week Prayers:</strong> 8:15 PM<br><strong>Bible Studies:</strong> 7:45 PM</p>
-                    </div>
-                    <div class="info-card">
-                        <h4>🎒 What to Bring</h4>
-                        <p>• Your Bible<br>• Notebook & pen<br>• A friend!<br>• Open heart</p>
-                    </div>
-                    <div class="info-card">
-                        <h4>🅿️ Parking & Location</h4>
-                        <p>Free parking available<br>• Springfield Youth Club<br>• Street parking nearby<br>• Accessible spots available</p>
-                    </div>
+                    <div class="info-card"><h4>📅 Weekly Program</h4><p><strong>Sunday:</strong> Service 11:00 AM - 1:00 PM<br><strong>Wednesday:</strong> Prayers 8:30 PM - 9:00 PM<br><strong>Thursday:</strong> Prayers 8:30 PM - 9:00 PM<br><strong>Friday:</strong> Bible Studies 8:00 PM - 9:00 PM<br><strong>Last Friday:</strong> Half-night Prayer 9:30 PM - 11:30 PM<br><strong>Saturday:</strong> Children & Young Adults 12:30 PM - 1:30 PM</p></div>
+                    <div class="info-card"><h4>⏰ Arrival Time</h4><p><strong>Sunday Services:</strong> 10:45 AM<br><strong>Mid-week Prayers:</strong> 8:15 PM<br><strong>Bible Studies:</strong> 7:45 PM</p></div>
+                    <div class="info-card"><h4>🎒 What to Bring</h4><p>• Your Bible<br>• Notebook & pen<br>• A friend!<br>• Open heart</p></div>
+                    <div class="info-card"><h4>🅿️ Parking & Location</h4><p>Free parking available<br>• Springfield Youth Club<br>• Street parking nearby<br>• Accessible spots available</p></div>
                 </div>
             </div>
         </div>
@@ -509,26 +438,11 @@
             <div class="section">
                 <h3>Share Your Prayer Request</h3>
                 <form onsubmit="submitPrayerRequest(event)">
-                    <div class="form-group">
-                        <label>Your Name</label>
-                        <input type="text" id="prayerName" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Email (optional)</label>
-                        <input type="email" id="prayerEmail">
-                    </div>
-                    <div class="form-group">
-                        <label>Prayer Request</label>
-                        <textarea id="prayerText" rows="5" placeholder="Share your prayer request here..." required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>
-                            <input type="checkbox" id="prayerPublic"> Allow to share with prayer team
-                        </label>
-                    </div>
-                    <div class="form-group">
-                        <button type="submit">Submit Prayer Request</button>
-                    </div>
+                    <div class="form-group"><label>Your Name</label><input type="text" id="prayerName" required></div>
+                    <div class="form-group"><label>Email (optional)</label><input type="email" id="prayerEmail"></div>
+                    <div class="form-group"><label>Prayer Request</label><textarea id="prayerText" rows="5" placeholder="Share your prayer request here..." required></textarea></div>
+                    <div class="form-group"><label><input type="checkbox" id="prayerPublic"> Allow to share with prayer team</label></div>
+                    <div class="form-group"><button type="submit">Submit Prayer Request</button></div>
                 </form>
                 <p style="margin-top: 20px; text-align: center; color: var(--text-secondary);">Our prayer team meets every Friday to pray for all requests.</p>
             </div>
@@ -552,60 +466,19 @@
         const allActivitiesCache = [];
         const januaryExclusions = ['Rev S Marrah', 'Rev Marrah', 'Elder Essie'];
 
-        // EXACT PREACHING ROSTER FROM THE DOCUMENT
         const preachers = {
-            "01-04": "Rev S Marrah",
-            "01-11": "Rev S Marrah",
-            "01-18": "Rev Felix Kachimanga",
-            "01-25": "Deaconess Angela Armstrong",
-            "02-01": "Rev S Marrah",
-            "02-08": "Rev S Marrah",
-            "02-15": "Rev Felix Kachimanga",
-            "02-22": "Elder Abu Brima",
-            "03-01": "Rev S Marrah",
-            "03-08": "Rev S Marrah",
-            "03-15": "Rev Felix Kachimanga",
-            "03-22": "Elder Essie Marrah",
-            "03-29": "Elder Paul Luke",
-            "04-05": "Rev S Marrah",
-            "04-12": "Rev S Marrah",
-            "04-19": "Rev Felix Kachimanga",
-            "04-26": "Sis Matilda Wilson",
-            "05-03": "Rev S Marrah",
-            "05-10": "Rev S Marrah",
-            "05-17": "Rev Felix Kachimanga",
-            "05-24": "Elder Georgetia Luke",
-            "05-31": "Sis Faith Orafu",
-            "06-07": "Rev S Marrah",
-            "06-14": "Rev S Marrah",
-            "06-21": "Rev Felix Kachimanga",
-            "06-28": "Elder Chantal Kachimanga",
-            "07-05": "Rev S Marrah",
-            "07-12": "Rev S Marrah",
-            "07-19": "Rev Felix Kachimanga",
-            "07-26": "Elder Essie Marrah",
-            "08-02": "Rev S Marrah",
-            "08-09": "Rev S Marrah",
-            "08-16": "Rev Felix Kachimanga",
-            "08-23": "Deaconess Angela Armstrong",
-            "08-30": "Elder Abu Brima",
-            "09-06": "Rev S Marrah",
-            "09-13": "Rev S Marrah",
-            "09-20": "Rev Felix Kachimanga",
-            "09-27": "Elder Paul Luke",
-            "10-04": "Rev S Marrah",
-            "10-11": "Rev S Marrah",
-            "10-18": "Rev Felix Kachimanga",
-            "10-25": "Elder Georgetia Luke",
-            "11-01": "Rev S Marrah",
-            "11-08": "Rev S Marrah",
-            "11-15": "Rev Felix Kachimanga",
-            "11-22": "Elder Chantal Kachimanga",
-            "11-29": "Rev Felix Kachimanga",
-            "12-06": "Rev S Marrah",
-            "12-13": "Rev S Marrah",
-            "12-20": "Rev Felix Kachimanga",
-            "12-27": "Elder Essie Marrah"
+            "01-04": "Rev S Marrah", "01-11": "Rev S Marrah", "01-18": "Rev Felix Kachimanga", "01-25": "Deaconess Angela Armstrong",
+            "02-01": "Rev S Marrah", "02-08": "Rev S Marrah", "02-15": "Rev Felix Kachimanga", "02-22": "Elder Abu Brima",
+            "03-01": "Rev S Marrah", "03-08": "Rev S Marrah", "03-15": "Rev Felix Kachimanga", "03-22": "Elder Essie Marrah", "03-29": "Elder Paul Luke",
+            "04-05": "Rev S Marrah", "04-12": "Rev S Marrah", "04-19": "Rev Felix Kachimanga", "04-26": "Sis Matilda Wilson",
+            "05-03": "Rev S Marrah", "05-10": "Rev S Marrah", "05-17": "Rev Felix Kachimanga", "05-24": "Elder Georgetia Luke", "05-31": "Sis Faith Orafu",
+            "06-07": "Rev S Marrah", "06-14": "Rev S Marrah", "06-21": "Rev Felix Kachimanga", "06-28": "Elder Chantal Kachimanga",
+            "07-05": "Rev S Marrah", "07-12": "Rev S Marrah", "07-19": "Rev Felix Kachimanga", "07-26": "Elder Essie Marrah",
+            "08-02": "Rev S Marrah", "08-09": "Rev S Marrah", "08-16": "Rev Felix Kachimanga", "08-23": "Deaconess Angela Armstrong", "08-30": "Elder Abu Brima",
+            "09-06": "Rev S Marrah", "09-13": "Rev S Marrah", "09-20": "Rev Felix Kachimanga", "09-27": "Elder Paul Luke",
+            "10-04": "Rev S Marrah", "10-11": "Rev S Marrah", "10-18": "Rev Felix Kachimanga", "10-25": "Elder Georgetia Luke",
+            "11-01": "Rev S Marrah", "11-08": "Rev S Marrah", "11-15": "Rev Felix Kachimanga", "11-22": "Elder Chantal Kachimanga", "11-29": "Rev Felix Kachimanga",
+            "12-06": "Rev S Marrah", "12-13": "Rev S Marrah", "12-20": "Rev Felix Kachimanga", "12-27": "Elder Essie Marrah"
         };
 
         const allLeaders = ["Rev Felix", "Rev Marrah", "Rev Komba", "Mama Essie", "Elder Essie", "Elder Luke", "Elder Georgitia", "Elder Chantal", "Deaconess Armstrong", "Elder Brima", "Sister Matilda", "Sister Faith"];
@@ -631,24 +504,32 @@
                 const preacher = preachers[dateKey];
                 if (preacher) {
                     activities.push({ title: "Sunday Service", time: "11:00 AM - 1:00 PM", type: "service", leader: preacher, date: date });
+                    
+                    const weekOfMonth = Math.ceil(dateNum / 7);
+                    if (weekOfMonth === 3) {
+                        const breakfastMonths = [0, 3, 6, 9];
+                        if (breakfastMonths.includes(month)) {
+                            activities.push({ title: "Breakfast Sunday", time: "11:00 AM - 1:00 PM", type: "service", date: date });
+                        } else {
+                            activities.push({ title: "Communion Sunday", time: "11:00 AM - 1:00 PM", type: "service", date: date });
+                            activities.push({ title: "Mission Sunday", time: "11:00 AM - 1:00 PM", type: "service", date: date });
+                        }
+                    }
                 }
             }
             
-            // WEDNESDAY
             if (day === 3) {
                 const occurrence = Math.floor((dateNum - 1) / 7);
                 let leader = getLeader(occurrence, month);
                 activities.push({ title: "Atmosphere of Worship 1", time: "8:30 PM - 9:00 PM", type: "worship", leader: leader, date: date });
             }
             
-            // THURSDAY
             if (day === 4) {
                 const occurrence = Math.floor((dateNum - 1) / 7);
                 let leader = getLeader(occurrence + 6, month);
                 activities.push({ title: "Atmosphere of Worship 2", time: "8:30 PM - 9:00 PM", type: "worship", leader: leader, date: date });
             }
             
-            // FRIDAY
             if (day === 5) {
                 const lastDay = new Date(year, month + 1, 0).getDate();
                 let isLastFri = dateNum > lastDay - 7 && day === 5;
@@ -679,7 +560,6 @@
                 }
             }
             
-            // SATURDAY
             if (day === 6) {
                 activities.push({ title: "Bible Studies for Children and Young Adults", time: "12:30 PM - 1:30 PM", type: "youth", leader: "Rev Felix", date: date });
             }
@@ -737,59 +617,36 @@
             }
         }
 
-        function goToToday() {
-            displayDate = new Date(2026, 0, 1);
-            render();
-        }
-
-        function goToPrevMonth() {
-            displayDate = new Date(displayDate.getFullYear(), displayDate.getMonth() - 1);
-            render();
-        }
-
-        function goToNextMonth() {
-            displayDate = new Date(displayDate.getFullYear(), displayDate.getMonth() + 1);
-            render();
-        }
-
-        function jumpToMonth() {
-            const month = parseInt(document.getElementById('monthSelect').value);
-            displayDate = new Date(2026, month, 1);
-            render();
-        }
-
+        function goToToday() { displayDate = new Date(2026, 0, 1); render(); }
+        function goToPrevMonth() { displayDate = new Date(displayDate.getFullYear(), displayDate.getMonth() - 1); render(); }
+        function goToNextMonth() { displayDate = new Date(displayDate.getFullYear(), displayDate.getMonth() + 1); render(); }
+        function jumpToMonth() { const month = parseInt(document.getElementById('monthSelect').value); displayDate = new Date(2026, month, 1); render(); }
         function switchTab(tabName) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.tab-button').forEach(el => el.classList.remove('active'));
             document.getElementById(tabName).classList.add('active');
             event.target.classList.add('active');
         }
-
         function toggleDarkMode() {
             document.body.classList.toggle('dark-mode');
             localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
         }
-
         function printCalendar() { window.print(); }
-
         function shareWhatsApp() {
             const text = "Check out Flaming Bible Church UK North London's 2026 Ministry Calendar!";
             const url = encodeURIComponent(window.location.href);
             window.open(`https://wa.me/?text=${text}%20${url}`, '_blank');
         }
-
         function shareEmail() {
             const subject = "Flaming Bible Church 2026 Calendar";
             const body = "Check out our church calendar at: " + window.location.href;
             window.open(`mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`);
         }
-
         function copyLink() {
             navigator.clipboard.writeText(window.location.href).then(() => {
                 alert('Link copied to clipboard!');
             });
         }
-
         function exportToIcal() {
             let ical = 'BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Flaming Bible Church//Church Calendar//EN\n';
             allActivitiesCache.forEach(activity => {
@@ -798,27 +655,22 @@
                 ical += 'BEGIN:VEVENT\nDTSTART:' + dateStr + '\nSUMMARY:' + activity.title + '\nDESCRIPTION:' + (activity.leader ? 'Leader: ' + activity.leader : '') + '\nEND:VEVENT\n';
             });
             ical += 'END:VCALENDAR';
-            
             const blob = new Blob([ical], { type: 'text/calendar' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
             link.download = 'flaming-church-calendar.ics';
             link.click();
         }
-
         function filterActivities() {}
-
         function submitPrayerRequest(event) {
             event.preventDefault();
             const name = document.getElementById('prayerName').value;
             alert('Thank you ' + name + '! Your prayer request has been submitted.');
             document.querySelector('form').reset();
         }
-
         if (localStorage.getItem('darkMode') === 'true') {
             document.body.classList.add('dark-mode');
         }
-
         let touchStartX = 0;
         document.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; });
         document.addEventListener('touchend', (e) => {
@@ -826,7 +678,6 @@
             if (touchStartX - touchEndX > 50) goToNextMonth();
             if (touchEndX - touchStartX > 50) goToPrevMonth();
         });
-
         render();
     </script>
 </body>
