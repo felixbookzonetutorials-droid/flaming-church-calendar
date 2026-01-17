@@ -6,11 +6,14 @@
     <meta name="theme-color" content="#1e293b">
     <meta name="description" content="Flaming Bible Church UK North London - 2026 Ministry Calendar">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Flaming Ministry Calendar">
+    <link rel="manifest" href="/manifest.json">
     <title>Flaming Bible Church UK North London - 2026 Ministry Calendar</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
+        
         :root {
             --bg-primary: #ffffff;
             --bg-secondary: #f1f5f9;
@@ -18,7 +21,10 @@
             --text-secondary: #64748b;
             --border-color: #e2e8f0;
             --accent: #1e293b;
+            --highlight: #fef3c7;
+            --highlight-border: #f59e0b;
         }
+        
         body.dark-mode {
             --bg-primary: #1e293b;
             --bg-secondary: #0f172a;
@@ -26,15 +32,18 @@
             --text-secondary: #cbd5e1;
             --border-color: #334155;
         }
+        
         body {
             font-family: Georgia, 'Times New Roman', serif;
             background: var(--bg-secondary);
             color: var(--text-primary);
             transition: background 0.3s, color 0.3s;
         }
+        
         header {
-            background: var(--bg-primary);
-            border-bottom: 3px solid var(--accent);
+            background: linear-gradient(135deg, var(--accent) 0%, #334155 100%);
+            color: white;
+            border-bottom: 3px solid #f59e0b;
             padding: 20px;
             text-align: center;
             display: flex;
@@ -42,106 +51,386 @@
             align-items: center;
             flex-wrap: wrap;
             gap: 10px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
-        header h1 { font-size: 22px; margin-bottom: 0; font-weight: bold; flex: 1; }
-        header p { font-size: 12px; color: var(--text-secondary); flex: 1; }
-        .header-buttons { display: flex; gap: 8px; align-items: center; }
+        
+        header h1 { font-size: 22px; margin-bottom: 0; font-weight: bold; flex: 1; color: white; }
+        header p { font-size: 12px; color: #e2e8f0; flex: 1; }
+        
+        .header-buttons { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
         .header-buttons button {
+            background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
+            color: #1e293b;
+            border: 2px solid #e2e8f0;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .header-buttons button:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            background: linear-gradient(135deg, #f1f5f9 0%, #ffffff 100%);
+            border-color: #f59e0b;
+        }
+        
+        .container { max-width: 1200px; margin: 0 auto; padding: 15px; }
+        
+        .hero {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 16px rgba(30, 41, 59, 0.1);
+            border: 2px solid #e2e8f0;
+        }
+        .hero h2 { font-size: 32px; margin-bottom: 12px; color: #1e293b; font-weight: 700; }
+        .hero .tagline { font-size: 18px; color: #64748b; margin-bottom: 15px; font-weight: 600; font-style: italic; }
+        
+        .tabs {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #e2e8f0;
+            background: transparent;
+            padding: 3px 0;
+            border-radius: 0;
+            justify-content: flex-start;
+        }
+        .tab-button {
+            padding: 3px 8px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            color: #64748b;
+            border-bottom: none;
+            transition: all 0.2s ease;
+        }
+        .tab-button.active {
+            color: #1e293b;
+            border-bottom: none;
+            box-shadow: none;
+            font-weight: 600;
+        }
+        .tab-button:hover {
+            color: #1e293b;
+            background: transparent;
+            text-decoration: underline;
+        }
+        
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .calendar-header h3 { flex: 1; font-size: 20px; }
+        
+        .calendar-nav button {
             background: var(--accent);
             color: white;
             border: none;
-            padding: 8px 12px;
+            padding: 8px 15px;
             cursor: pointer;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: bold;
+            border-radius: 5px;
         }
-        .header-buttons button:hover { opacity: 0.9; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 15px; }
-        .tabs { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; justify-content: center; }
-        .tab-button {
+        
+        .month-selector {
+            padding: 8px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .legend {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            margin-bottom: 20px;
+            background: var(--bg-primary);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            border: 2px solid var(--border-color);
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            font-weight: 500;
+            padding: 8px;
+        }
+        
+        .legend-color {
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .day-header {
+            text-align: center;
+            font-weight: bold;
+            padding: 10px;
+            background: var(--border-color);
+            border-radius: 5px;
+        }
+        
+        .calendar-day {
             background: var(--bg-primary);
             border: 2px solid var(--border-color);
-            padding: 10px 20px;
+            border-radius: 8px;
+            padding: 10px;
+            min-height: 100px;
             cursor: pointer;
-            border-radius: 6px;
+            transition: all 0.3s ease;
+            position: relative;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+        }
+        
+        .calendar-day.today {
+            background: var(--highlight) !important;
+            border: 2px solid var(--highlight-border);
+            box-shadow: 0 0 16px rgba(245, 158, 11, 0.4);
+            transform: scale(1.02);
+        }
+        
+        .calendar-day:hover { 
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+            transform: translateY(-2px);
+            border-color: #f59e0b;
+        }
+        
+        .day-number {
             font-weight: bold;
-            transition: all 0.3s;
-            color: var(--text-primary);
+            margin-bottom: 5px;
+            font-size: 14px;
         }
-        .tab-button.active { background: var(--accent); color: white; border-color: var(--accent); }
-        .tab-button:hover { border-color: var(--accent); }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
-        .hero {
+        
+        .activity {
+            font-size: 11px;
+            padding: 5px;
+            margin-bottom: 3px;
+            border-radius: 3px;
+            background-color: #e0e7ff;
+        }
+        
+        .activity.service { background-color: #dbeafe; }
+        .activity.worship { background-color: #e9d5ff; }
+        .activity.study { background-color: #d1fae5; }
+        .activity.prayer { background-color: #fed7aa; }
+        .activity.youth { background-color: #fce7f3; }
+        .activity.womens-prayer { background-color: #f3e8ff; }
+        .activity.womens-prayer-sub { 
+            background-color: #faf5ff; 
+            font-size: 9px !important;
+            font-style: italic;
+            opacity: 0.7;
+            padding: 3px !important;
+            margin-top: 5px;
+            border-left: 3px solid #d4a5ff;
+        }
+        
+        .activity-title { font-weight: bold; font-size: 10px; }
+        .activity-time { font-size: 9px; color: #475569; }
+        .activity-leader { font-size: 9px; color: #1e293b; }
+        
+        .activity-list {
+            list-style: none;
+            display: grid;
+            gap: 15px;
+        }
+        
+        .activity-list-item {
             background: var(--bg-primary);
-            padding: 25px;
+            padding: 16px;
             border-radius: 10px;
-            text-align: center;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid var(--accent);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
         }
-        .hero h2 { font-size: 28px; margin-bottom: 12px; }
-        .hero .tagline { font-size: 18px; color: var(--text-secondary); margin-bottom: 10px; font-weight: bold; }
-        .hero p { font-size: 15px; color: var(--text-secondary); }
-        .section {
-            background: var(--bg-primary);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
+        
+        .activity-list-item:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+            transform: translateX(4px);
         }
-        .section h3 { font-size: 24px; margin-bottom: 15px; font-weight: bold; }
-        .controls-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; gap: 10px; flex-wrap: wrap; }
-        .controls-bar button { background: var(--accent); color: white; border: none; padding: 10px 16px; cursor: pointer; border-radius: 6px; font-weight: bold; font-size: 14px; }
-        .controls-bar button:hover { opacity: 0.9; }
-        .month-selector { background: var(--bg-secondary); padding: 15px; border-radius: 6px; text-align: center; }
-        .month-selector select { padding: 8px 12px; border-radius: 6px; border: 2px solid var(--border-color); background: var(--bg-primary); color: var(--text-primary); font-size: 14px; cursor: pointer; }
-        .color-legend { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
-        .legend-item { display: flex; align-items: center; gap: 10px; }
-        .legend-box { width: 30px; height: 30px; border-radius: 6px; border: 2px solid; flex-shrink: 0; }
-        .search-filter { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
-        .search-filter input, .search-filter select { padding: 10px; border-radius: 6px; border: 2px solid var(--border-color); background: var(--bg-primary); color: var(--text-primary); flex: 1; min-width: 150px; }
-        .share-buttons { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
-        .share-btn { background: var(--bg-secondary); border: 2px solid var(--border-color); padding: 10px 16px; cursor: pointer; border-radius: 6px; font-weight: bold; transition: all 0.3s; color: var(--text-primary); }
-        .share-btn:hover { background: var(--accent); color: white; border-color: var(--accent); }
-        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; margin-bottom: 20px; }
-        .day-headers { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; margin-bottom: 10px; }
-        .day-header { text-align: center; font-weight: bold; padding: 10px; background: var(--bg-secondary); border-radius: 6px; }
-        .calendar-day { border: 2px solid var(--border-color); border-radius: 8px; padding: 10px; min-height: 100px; overflow-y: auto; background: var(--bg-primary); font-size: 10px; }
-        .calendar-day.empty { background: transparent; border: none; }
-        .calendar-day.has-events { background: #fef3c7; border-color: #fbbf24; }
-        .day-number { font-weight: bold; font-size: 14px; margin-bottom: 6px; }
-        .activity { font-size: 9px; padding: 4px; margin-bottom: 3px; border-radius: 4px; border-left: 2px solid; line-height: 1.2; }
-        .activity.service { background: #fef3c7; border-color: #d97706; }
-        .activity.worship { background: #ede9fe; border-color: #7c3aed; }
-        .activity.prayer { background: #dbeafe; border-color: #2563eb; }
-        .activity.study { background: #dcfce7; border-color: #16a34a; }
-        .activity.youth { background: #fbcfe8; border-color: #ec4899; }
-        .activity-list { list-style: none; }
-        .activity-list-item { background: var(--bg-primary); border-left: 5px solid var(--accent); padding: 15px; margin-bottom: 12px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
-        .activity-list-item.service { border-left-color: #d97706; }
+        
+        .activity-list-item.service { border-left-color: #0284c7; }
         .activity-list-item.worship { border-left-color: #7c3aed; }
-        .activity-list-item.prayer { border-left-color: #2563eb; }
-        .activity-list-item.study { border-left-color: #16a34a; }
-        .activity-list-item.youth { border-left-color: #ec4899; }
-        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 20px; }
-        .info-card { background: var(--bg-secondary); padding: 20px; border-radius: 10px; border-left: 4px solid var(--accent); }
-        .info-card h4 { margin-bottom: 10px; font-size: 18px; }
-        .info-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
-        .form-group input, .form-group textarea { width: 100%; padding: 10px; border-radius: 6px; border: 2px solid var(--border-color); background: var(--bg-primary); color: var(--text-primary); font-family: inherit; resize: vertical; }
-        .form-group button { background: var(--accent); color: white; border: none; padding: 12px 24px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 14px; }
-        .form-group button:hover { opacity: 0.9; }
-        footer { background: var(--accent); color: white; padding: 30px 20px; text-align: center; margin-top: 30px; }
-        footer h3 { margin-bottom: 10px; font-size: 20px; }
-        footer p { font-size: 14px; color: #cbd5e1; margin: 6px 0; }
-        .footer-links { margin-top: 20px; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
-        .footer-links a { color: #cbd5e1; text-decoration: none; font-size: 14px; }
-        .footer-links a:hover { text-decoration: underline; }
-        @media print { header, .tabs, .controls-bar, .search-filter, .share-buttons { display: none; } .calendar-day { page-break-inside: avoid; } }
-        @media (max-width: 768px) { header { flex-direction: column; } .calendar-day { min-height: 80px; } .controls-bar { flex-direction: column; } .search-filter { flex-direction: column; } .day-headers { display: none; } .calendar-grid { display: none; } .activity-list { display: block; } }
+        .activity-list-item.study { border-left-color: #059669; }
+        .activity-list-item.prayer { border-left-color: #ea580c; }
+        .activity-list-item.youth { border-left-color: #be185d; }
+        .activity-list-item.womens-prayer { border-left-color: #a855f7; }
+        .activity-list-item.womens-prayer-sub { 
+            border-left-color: #d4a5ff; 
+            opacity: 0.75;
+            font-style: italic;
+            font-size: 13px;
+            padding: 12px 16px;
+        }
+        
+        .activity-list-item-date { font-weight: bold; font-size: 14px; margin-bottom: 5px; }
+        .activity-list-item-title { font-size: 16px; font-weight: bold; margin-bottom: 8px; }
+        .activity-list-item-time { font-size: 13px; color: var(--text-secondary); margin-bottom: 5px; }
+        .activity-list-item-leader { font-size: 13px; color: var(--text-secondary); }
+        
+        .search-box {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .search-box input {
+            flex: 1;
+            min-width: 200px;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+        }
+        
+        .search-box button {
+            padding: 10px 20px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .church-info, .attendance-tips, .prayer-form {
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 2px solid var(--border-color);
+        }
+        
+        .church-info h3, .attendance-tips h3, .prayer-form h3 {
+            margin-bottom: 18px;
+            font-size: 22px;
+            color: var(--accent);
+            font-weight: 700;
+            border-bottom: 3px solid #f59e0b;
+            padding-bottom: 10px;
+        }
+        
+        .leader-item {
+            background: linear-gradient(135deg, #e0e7ff 0%, #dbeafe 100%);
+            padding: 16px;
+            margin-bottom: 12px;
+            border-radius: 10px;
+            border-left: 5px solid #1e293b;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+        
+        .leader-name { 
+            font-weight: 700; 
+            font-size: 16px;
+            color: #1e293b;
+            margin-bottom: 4px;
+        }
+        .leader-role { 
+            font-size: 14px; 
+            color: #64748b;
+            font-weight: 600;
+        }
+        
+        .attendance-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .attendance-list li {
+            padding: 10px;
+            margin-bottom: 5px;
+            background: var(--bg-secondary);
+            border-radius: 5px;
+        }
+        
+        .prayer-form form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .prayer-form input, .prayer-form textarea {
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+        }
+        
+        .prayer-form button {
+            padding: 12px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: var(--text-secondary);
+            border-top: 3px solid var(--accent);
+            margin-top: 40px;
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        footer p {
+            margin: 8px 0;
+            font-weight: 500;
+        }
+        
+        footer p:first-child {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+        
+        @media (max-width: 768px) {
+            header { flex-direction: column; }
+            .calendar-grid { gap: 3px; }
+            .calendar-day { min-height: 80px; padding: 5px; }
+            .day-number { font-size: 12px; }
+            .activity { font-size: 9px; padding: 3px; }
+            .tabs { flex-direction: column; }
+            .legend { grid-template-columns: repeat(2, 1fr); }
+        }
+        
+        @print {
+            body { background: white; }
+            header, .tabs, .header-buttons, .search-box { display: none; }
+            .calendar-day { page-break-inside: avoid; }
+        }
     </style>
 </head>
 <body>
@@ -151,316 +440,597 @@
             <p>A place of fulfilling God's Purpose</p>
         </div>
         <div class="header-buttons">
+            <button onclick="goToToday()">📍 Today</button>
             <button onclick="toggleDarkMode()">🌙 Dark</button>
             <button onclick="printCalendar()">🖨️ Print</button>
+            <button onclick="shareWhatsApp()">💬 WhatsApp</button>
+            <button onclick="shareEmail()">✉️ Email</button>
         </div>
     </header>
+    
     <div class="container">
         <div class="hero">
-            <h2>Welcome to Flaming Bible Church</h2>
-            <p class="tagline">A place of fulfilling God's Purpose</p>
-            <p>Join us as we grow together in faith and serve our community with love and compassion</p>
+            <h2>2026 Ministry Calendar</h2>
+            <p class="tagline">View our weekly activities, sermons, and special events</p>
         </div>
+        
         <div class="tabs">
-            <button class="tab-button active" onclick="switchTab('calendar')">📅 Calendar</button>
-            <button class="tab-button" onclick="switchTab('info')">ℹ️ Church Info</button>
-            <button class="tab-button" onclick="switchTab('attendance')">📍 Attendance</button>
-            <button class="tab-button" onclick="switchTab('prayer')">🙏 Prayer Requests</button>
+            <button class="tab-button active" onclick="switchTab('calendar-tab')">📅 Calendar</button>
+            <button class="tab-button" onclick="switchTab('list-tab')">📋 List View</button>
+            <button class="tab-button" onclick="switchTab('info-tab')">ℹ️ Church Info</button>
+            <button class="tab-button" onclick="switchTab('attendance-tab')">📍 Attendance</button>
+            <button class="tab-button" onclick="switchTab('prayer-tab')">🙏 Prayer</button>
         </div>
-        <div id="calendar" class="tab-content active">
-            <div class="section">
-                <h3>Church Calendar 2026</h3>
-                <div class="color-legend">
-                    <div class="legend-item"><div class="legend-box" style="background: #fef3c7; border-color: #d97706;"></div><span>Sunday Services</span></div>
-                    <div class="legend-item"><div class="legend-box" style="background: #ede9fe; border-color: #7c3aed;"></div><span>Worship Sessions</span></div>
-                    <div class="legend-item"><div class="legend-box" style="background: #dbeafe; border-color: #2563eb;"></div><span>Prayer Meetings</span></div>
-                    <div class="legend-item"><div class="legend-box" style="background: #dcfce7; border-color: #16a34a;"></div><span>Bible Studies</span></div>
-                    <div class="legend-item"><div class="legend-box" style="background: #fbcfe8; border-color: #ec4899;"></div><span>Youth Activities</span></div>
+        
+        <!-- CALENDAR TAB -->
+        <div id="calendar-tab" class="tab-content active">
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #dbeafe;"></div>
+                    <span>Sunday Services</span>
                 </div>
-                <div class="search-filter">
-                    <input type="text" id="searchInput" placeholder="🔍 Search by activity name..." onkeyup="filterActivities()">
-                    <select id="filterType" onchange="filterActivities()">
-                        <option value="">All Activities</option>
-                        <option value="service">Sunday Services</option>
-                        <option value="worship">Worship Sessions</option>
-                        <option value="prayer">Prayer Meetings</option>
-                        <option value="study">Bible Studies</option>
-                        <option value="youth">Youth Activities</option>
-                    </select>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #e9d5ff;"></div>
+                    <span>Atmosphere of Prayer</span>
                 </div>
-                <div class="share-buttons">
-                    <button class="share-btn" onclick="shareWhatsApp()">📱 WhatsApp</button>
-                    <button class="share-btn" onclick="shareEmail()">📧 Email</button>
-                    <button class="share-btn" onclick="copyLink()">🔗 Copy Link</button>
-                    <button class="share-btn" onclick="exportToIcal()">📥 Export</button>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #d1fae5;"></div>
+                    <span>Bible Studies</span>
                 </div>
-                <div class="controls-bar">
-                    <button onclick="goToToday()">📍 Today (Jan 1)</button>
-                    <button onclick="goToPrevMonth()">◀ Prev</button>
-                    <div class="month-selector">
-                        <select id="monthSelect" onchange="jumpToMonth()">
-                            <option value="0">January 2026</option>
-                            <option value="1">February 2026</option>
-                            <option value="2">March 2026</option>
-                            <option value="3">April 2026</option>
-                            <option value="4">May 2026</option>
-                            <option value="5">June 2026</option>
-                            <option value="6">July 2026</option>
-                            <option value="7">August 2026</option>
-                            <option value="8">September 2026</option>
-                            <option value="9">October 2026</option>
-                            <option value="10">November 2026</option>
-                            <option value="11">December 2026</option>
-                        </select>
-                    </div>
-                    <button onclick="goToNextMonth()">Next ▶</button>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #fed7aa;"></div>
+                    <span>Prayer & Special Events</span>
                 </div>
-                <div class="day-headers">
-                    <div class="day-header">Sun</div>
-                    <div class="day-header">Mon</div>
-                    <div class="day-header">Tue</div>
-                    <div class="day-header">Wed</div>
-                    <div class="day-header">Thu</div>
-                    <div class="day-header">Fri</div>
-                    <div class="day-header">Sat</div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #fce7f3;"></div>
+                    <span>Youth Activities</span>
                 </div>
-                <div id="calendarDays" class="calendar-grid"></div>
-                <ul id="activityListContainer" class="activity-list"></ul>
-            </div>
-        </div>
-        <div id="info" class="tab-content">
-            <div class="section">
-                <h3>About Flaming Bible Church</h3>
-                <div class="info-grid">
-                    <div class="info-card"><h4>👨‍💼 Leadership</h4><p><strong>Lead Pastor:</strong> Rev S Marrah<br><strong>Associate Pastor:</strong> Rev Felix Kachimanga</p></div>
-                    <div class="info-card"><h4>📍 Location</h4><p>Anthony Marsh Building<br>Springfield Youth Club<br>Big Hill, Clapton<br>London E5 9HH</p></div>
-                    <div class="info-card"><h4>📞 Contact</h4><p>Rev Marrah: 07808 892341<br>Rev Felix: 07722139191</p></div>
-                    <div class="info-card"><h4>🙏 Mission</h4><p>A place of fulfilling God's Purpose. We are committed to growing together in faith and serving our community with love.</p></div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #f3e8ff;"></div>
+                    <span>Daily: Women's Prayer 6pm</span>
                 </div>
             </div>
+            
+            <div class="calendar-header">
+                <h3 id="monthYearDisplay"></h3>
+                <select class="month-selector" id="monthSelect" onchange="jumpToMonth()">
+                    <option value="">Select Month</option>
+                    <option value="0">January</option>
+                    <option value="1">February</option>
+                    <option value="2">March</option>
+                    <option value="3">April</option>
+                    <option value="4">May</option>
+                    <option value="5">June</option>
+                    <option value="6">July</option>
+                    <option value="7">August</option>
+                    <option value="8">September</option>
+                    <option value="9">October</option>
+                    <option value="10">November</option>
+                    <option value="11">December</option>
+                </select>
+                <div class="calendar-nav">
+                    <button onclick="goToPrevMonth()">← Prev</button>
+                    <button onclick="goToNextMonth()">Next →</button>
+                </div>
+            </div>
+            
+            <div class="calendar-grid" id="calendarGrid"></div>
         </div>
-        <div id="attendance" class="tab-content">
-            <div class="section">
-                <h3>Attendance Tips & Weekly Program</h3>
-                <div class="info-grid">
-                    <div class="info-card"><h4>📅 Weekly Program</h4><p><strong>Sunday:</strong> Service 11:00 AM - 1:00 PM<br><strong>Wednesday:</strong> Prayers 8:30 PM - 9:00 PM<br><strong>Thursday:</strong> Prayers 8:30 PM - 9:00 PM<br><strong>Friday:</strong> Bible Studies 8:00 PM - 9:00 PM<br><strong>Last Friday:</strong> Half-night Prayer 9:30 PM - 11:30 PM<br><strong>Saturday:</strong> Children & Young Adults 12:30 PM - 1:30 PM</p></div>
-                    <div class="info-card"><h4>⏰ Arrival Time</h4><p><strong>Sunday Services:</strong> 10:45 AM<br><strong>Mid-week Prayers:</strong> 8:15 PM<br><strong>Bible Studies:</strong> 7:45 PM</p></div>
-                    <div class="info-card"><h4>🎒 What to Bring</h4><p>• Your Bible<br>• Notebook & pen<br>• A friend!<br>• Open heart</p></div>
-                    <div class="info-card"><h4>🅿️ Parking & Location</h4><p>Free parking available<br>• Springfield Youth Club<br>• Street parking nearby<br>• Accessible spots available</p></div>
+        
+        <!-- LIST VIEW TAB -->
+        <div id="list-tab" class="tab-content">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search activities or leaders...">
+                <button onclick="searchActivities()">🔍 Search</button>
+                <button onclick="clearSearch()">Clear</button>
+            </div>
+            <ul class="activity-list" id="activityList"></ul>
+        </div>
+        
+        <!-- CHURCH INFO TAB -->
+        <div id="info-tab" class="tab-content">
+            <div class="church-info">
+                <h3>About Us</h3>
+                <p style="margin-bottom: 15px;">Flaming Bible Church UK North London is a dynamic, spirit-filled church dedicated to fulfilling God's purpose in our community and beyond.</p>
+                
+                <h3>Contact Information</h3>
+                <p><strong>Address:</strong> Anthony Marsh Building, Springfield Youth Club, North London</p>
+                <p><strong>Rev S Marrah:</strong> +44 7808 892341</p>
+                <p><strong>Rev Felix Kachimanga:</strong> +44 7722 139191</p>
+                
+                <h3>Leadership</h3>
+                <div class="leader-item">
+                    <div class="leader-name">Rev S Marrah</div>
+                    <div class="leader-role">Lead Pastor</div>
+                </div>
+                <div class="leader-item">
+                    <div class="leader-name">Rev Felix Kachimanga</div>
+                    <div class="leader-role">Associate Pastor</div>
                 </div>
             </div>
         </div>
-        <div id="prayer" class="tab-content">
-            <div class="section">
-                <h3>Share Your Prayer Request</h3>
+        
+        <!-- ATTENDANCE TIPS TAB -->
+        <div id="attendance-tab" class="tab-content">
+            <div class="attendance-tips">
+                <h3>📍 Attendance Tips</h3>
+                <ul class="attendance-list">
+                    <li>✅ Arrive 10-15 minutes early to settle in</li>
+                    <li>✅ Bring your Bible for reference</li>
+                    <li>✅ Invite a friend or family member</li>
+                    <li>✅ Free beverages available after service</li>
+                    <li>✅ Parking available on-site and nearby streets</li>
+                    <li>✅ All activities available "Live & via Zoom"</li>
+                    <li>✅ Children's programs available during services</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- PRAYER REQUEST TAB -->
+        <div id="prayer-tab" class="tab-content">
+            <div class="prayer-form">
+                <h3>🙏 Submit a Prayer Request</h3>
                 <form onsubmit="submitPrayerRequest(event)">
-                    <div class="form-group"><label>Your Name</label><input type="text" id="prayerName" required></div>
-                    <div class="form-group"><label>Email (optional)</label><input type="email" id="prayerEmail"></div>
-                    <div class="form-group"><label>Prayer Request</label><textarea id="prayerText" rows="5" placeholder="Share your prayer request here..." required></textarea></div>
-                    <div class="form-group"><label><input type="checkbox" id="prayerPublic"> Allow to share with prayer team</label></div>
-                    <div class="form-group"><button type="submit">Submit Prayer Request</button></div>
+                    <input type="text" id="prayerName" placeholder="Your name" required>
+                    <textarea id="prayerRequest" placeholder="Your prayer request..." rows="5" required></textarea>
+                    <button type="submit">Submit Prayer Request</button>
                 </form>
-                <p style="margin-top: 20px; text-align: center; color: var(--text-secondary);">Our prayer team meets every Friday to pray for all requests.</p>
             </div>
         </div>
     </div>
+    
     <footer>
-        <h3>Flaming Bible Church UK North London</h3>
+        <p>&copy; 2026 Flaming Bible Church UK North London</p>
         <p>A place of fulfilling God's Purpose</p>
-        <div class="footer-links">
-            <a href="#" onclick="shareWhatsApp()">WhatsApp</a>
-            <a href="#" onclick="shareEmail()">Email</a>
-            <a href="#" onclick="printCalendar()">Print</a>
-            <a href="#" onclick="copyLink()">Share Link</a>
-        </div>
-        <p style="margin-top: 20px;">© 2026 Flaming Bible Church UK North London. All rights reserved.</p>
+        <p style="font-size: 12px; margin-top: 10px;">All activities are "Live & via Zoom"</p>
     </footer>
-    <script>
+    
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         let displayDate = new Date(2026, 0, 1);
-        const allActivitiesCache = [];
-        const januaryExclusions = ['Rev S Marrah', 'Rev Marrah', 'Elder Essie'];
-        const preachers = {
+        let allActivitiesCache = [];
+        
+        // ✅ ORIGINAL PREACHING ROSTER - UNCHANGED - Exactly as provided by Felix
+        const preachingRoster = {
+            // January
             "01-04": "Rev S Marrah", "01-11": "Rev S Marrah", "01-18": "Rev Felix Kachimanga", "01-25": "Deaconess Angela Armstrong",
+            // February
             "02-01": "Rev S Marrah", "02-08": "Rev S Marrah", "02-15": "Rev Felix Kachimanga", "02-22": "Elder Abu Brima",
+            // March
             "03-01": "Rev S Marrah", "03-08": "Rev S Marrah", "03-15": "Rev Felix Kachimanga", "03-22": "Elder Essie Marrah", "03-29": "Elder Paul Luke",
+            // April
             "04-05": "Rev S Marrah", "04-12": "Rev S Marrah", "04-19": "Rev Felix Kachimanga", "04-26": "Sis Matilda Wilson",
+            // May
             "05-03": "Rev S Marrah", "05-10": "Rev S Marrah", "05-17": "Rev Felix Kachimanga", "05-24": "Elder Georgetia Luke", "05-31": "Sis Faith Orafu",
+            // June
             "06-07": "Rev S Marrah", "06-14": "Rev S Marrah", "06-21": "Rev Felix Kachimanga", "06-28": "Elder Chantal Kachimanga",
+            // July
             "07-05": "Rev S Marrah", "07-12": "Rev S Marrah", "07-19": "Rev Felix Kachimanga", "07-26": "Elder Essie Marrah",
+            // August
             "08-02": "Rev S Marrah", "08-09": "Rev S Marrah", "08-16": "Rev Felix Kachimanga", "08-23": "Deaconess Angela Armstrong", "08-30": "Elder Abu Brima",
+            // September
             "09-06": "Rev S Marrah", "09-13": "Rev S Marrah", "09-20": "Rev Felix Kachimanga", "09-27": "Elder Paul Luke",
+            // October
             "10-04": "Rev S Marrah", "10-11": "Rev S Marrah", "10-18": "Rev Felix Kachimanga", "10-25": "Elder Georgetia Luke",
+            // November
             "11-01": "Rev S Marrah", "11-08": "Rev S Marrah", "11-15": "Rev Felix Kachimanga", "11-22": "Elder Chantal Kachimanga", "11-29": "Rev Felix Kachimanga",
+            // December
             "12-06": "Rev S Marrah", "12-13": "Rev S Marrah", "12-20": "Rev Felix Kachimanga", "12-27": "Elder Essie Marrah"
         };
-        const allLeaders = ["Rev Felix", "Rev Marrah", "Rev Komba", "Mama Essie", "Elder Essie", "Elder Luke", "Elder Georgitia", "Elder Chantal", "Deaconess Armstrong", "Elder Brima", "Sister Matilda", "Sister Faith"];
-        function getLeader(index, month) {
-            let leader = allLeaders[index % allLeaders.length];
-            if (month === 0 && januaryExclusions.includes(leader)) {
-                leader = allLeaders[(index + 1) % allLeaders.length];
+        
+        const leaders = [
+            "Rev Komba", "Elder Essie", "Elder Luke",
+            "Elder Georgitia", "Elder Chantal", "Deaconess Armstrong", "Elder Brima", "Sister Matilda", "Sister Faith",
+            "Deaconess Victoria", "Deaconess Voncil", "Sister Nana", "Elder Garnett", "Mrs Garnett"
+        ];
+        
+        const wednesdayLeaders = Array.from({ length: 52 }, (_, i) => leaders[i % 14]);
+        const thursdayLeaders = Array.from({ length: 53 }, (_, i) => leaders[(i + 7) % 14]);
+        // Bible study assignments: Rev Felix leads first Friday of each month
+        // 14 team members, max 2x per month per person, fair balanced distribution
+        const bibleStudyAssignments = {
+            "01": ["Rev Felix", "Rev Komba", "Elder Essie", "Deaconess Voncil"],      // 4 Fridays
+            "02": ["Rev Felix", "Elder Luke", "Deaconess Victoria", "Sister Nana"],   // 4 Fridays
+            "03": ["Rev Felix", "Elder Georgitia", "Elder Chantal", "Deaconess Armstrong"], // 4 Fridays
+            "04": ["Rev Felix", "Elder Brima", "Sister Matilda", "Sister Faith"],     // 4 Fridays
+            "05": ["Rev Felix", "Rev Komba", "Deaconess Victoria", "Elder Garnett"],  // 4-5 Fridays
+            "06": ["Rev Felix", "Elder Luke", "Deaconess Voncil", "Mrs Garnett"],     // 4 Fridays
+            "07": ["Rev Felix", "Elder Georgitia", "Elder Essie", "Sister Nana"],     // 4-5 Fridays
+            "08": ["Rev Felix", "Elder Chantal", "Deaconess Armstrong", "Elder Brima"], // 4 Fridays
+            "09": ["Rev Felix", "Sister Matilda", "Sister Faith", "Rev Komba"],       // 4-5 Fridays
+            "10": ["Rev Felix", "Elder Luke", "Deaconess Victoria", "Elder Garnett"], // 4 Fridays
+            "11": ["Rev Felix", "Deaconess Voncil", "Mrs Garnett", "Elder Georgitia"], // 4-5 Fridays
+            "12": ["Rev Felix", "Elder Essie", "Elder Chantal", "Sister Nana"]        // 4 Fridays
+        };
+        
+        // ✅ FIXED: Half-Night of Prayer - 14 team members only (balanced, no repetition per month)
+        const halfNightFacilitators = {
+            "01-31": ["Elder Chantal", "Deaconess Victoria"],           // Jan
+            "02-27": ["Elder Luke", "Sister Nana"],                     // Feb
+            "03-27": ["Sister Matilda", "Deaconess Armstrong"],         // Mar
+            "04-24": ["Elder Garnett", "Mrs Garnett"],                  // Apr
+            "05-29": ["Rev Komba", "Elder Essie"],                      // May
+            "06-26": ["Elder Georgitia", "Sister Faith"],               // Jun
+            "07-31": ["Elder Brima", "Deaconess Voncil"],               // Jul
+            "08-28": ["Elder Chantal", "Deaconess Victoria"],           // Aug (repeats but different person)
+            "09-25": ["Elder Luke", "Sister Matilda"],                  // Sep
+            "10-30": ["Deaconess Armstrong", "Elder Garnett"],          // Oct
+            "11-27": ["Mrs Garnett", "Sister Faith"],                   // Nov
+            "12-25": ["Rev Komba", "Elder Essie"]                       // Dec (repeats but different person)
+        };
+        
+        function countWeekdayOccurrences(d, targetDay) {
+            let count = 0;
+            const startDate = new Date(d.getFullYear(), 0, 1);
+            for (let i = 0; i <= Math.floor((d - startDate) / (1000 * 60 * 60 * 24)); i++) {
+                const checkDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + i);
+                if (checkDate.getDay() === targetDay) count++;
             }
-            return leader;
+            return count - 1;
         }
-        function getActivities(date) {
+        
+        function generateActivities(date) {
             const activities = [];
-            const day = date.getDay();
-            const dateNum = date.getDate();
+            const dayOfWeek = date.getDay();
+            const dayOfMonth = date.getDate();
             const month = date.getMonth();
             const year = date.getFullYear();
-            const dateKey = String(month + 1).padStart(2, '0') + '-' + String(dateNum).padStart(2, '0');
-            if (day === 0) {
-                const preacher = preachers[dateKey];
-                if (preacher) {
-                    activities.push({ title: "Sunday Service", time: "11:00 AM - 1:00 PM", type: "service", leader: preacher, date: date });
-                    const weekOfMonth = Math.ceil(dateNum / 7);
-                    if (weekOfMonth === 3) {
-                        activities.push({ title: "Communion Sunday", time: "11:00 AM - 1:00 PM", type: "service", date: date });
-                        activities.push({ title: "Mission Sunday", time: "11:00 AM - 1:00 PM", type: "service", date: date });
-                        const breakfastMonths = [0, 3, 6, 9];
-                        if (breakfastMonths.includes(month)) {
-                            activities.push({ title: "Breakfast Sunday", time: "11:00 AM - 1:00 PM", type: "service", date: date });
-                        }
-                    }
+            
+            const lastDay = new Date(year, month + 1, 0).getDate();
+            const lastFriday = new Date(year, month, lastDay);
+            while (lastFriday.getDay() !== 5) lastFriday.setDate(lastFriday.getDate() - 1);
+            const isLastFriday = dayOfMonth === lastFriday.getDate();
+            
+            // SUNDAY SERVICES
+            if (dayOfWeek === 0) {
+                const dateKey = `${String(month + 1).padStart(2, '0')}-${String(dayOfMonth).padStart(2, '0')}`;
+                const preacher = preachingRoster[dateKey] || "Rev S Marrah";
+                const weekOfMonth = Math.ceil(dayOfMonth / 7);
+                
+                // ✅ ALWAYS FIRST: Regular Sunday Service (WITH TIME)
+                activities.push({
+                    title: "Sunday Service",
+                    time: "11:00 AM - 1:00 PM",
+                    type: "service",
+                    description: "Live & via Zoom",
+                    leader: preacher,
+                    date: date
+                });
+                
+                // ✅ NEW: Church Meeting on every first Sunday (NO TIME - part of service)
+                if (weekOfMonth === 1) {
+                    activities.push({
+                        title: "Church Meeting",
+                        time: null,
+                        type: "service",
+                        description: "Live & via Zoom",
+                        leader: "Church Leadership",
+                        date: date,
+                        noTime: true
+                    });
+                }
+                
+                // ✅ NEW: Communion Sunday on every third Sunday (NO TIME - part of service)
+                if (weekOfMonth === 3) {
+                    activities.push({
+                        title: "Communion Sunday",
+                        time: null,
+                        type: "service",
+                        description: "Live & via Zoom",
+                        leader: "Pastoral Team",
+                        date: date,
+                        noTime: true
+                    });
+                }
+                
+                // ✅ Special: Community Breakfast on 8 February 2026 (NO TIME - part of service)
+                if (month === 1 && dayOfMonth === 8) {
+                    activities.push({
+                        title: "Community Breakfast",
+                        time: null,
+                        type: "service",
+                        description: "Live & via Zoom",
+                        leader: "Church Family",
+                        date: date,
+                        noTime: true
+                    });
+                }
+                
+                // ✅ Special: Church Thanksgiving Service on 15 March 2026 (NO TIME - part of service)
+                if (month === 2 && dayOfMonth === 15) {
+                    activities.push({
+                        title: "Church Thanksgiving Service",
+                        time: null,
+                        type: "service",
+                        description: "Live & via Zoom",
+                        leader: "All Leaders",
+                        date: date,
+                        noTime: true
+                    });
                 }
             }
-            if (day === 3) {
-                const occurrence = Math.floor((dateNum - 1) / 7);
-                let leader = getLeader(occurrence, month);
-                activities.push({ title: "Atmosphere of Worship 1", time: "8:30 PM - 9:00 PM", type: "worship", leader: leader, date: date });
+            
+            // WEDNESDAY - ATMOSPHERE OF PRAYER 1
+            if (dayOfWeek === 3) {
+                const wednesdayCount = countWeekdayOccurrences(date, 3);
+                activities.push({
+                    title: "Atmosphere of Prayer 1",
+                    time: "8:30 PM - 9:00 PM",
+                    type: "worship",
+                    description: "Live & via Zoom",
+                    leader: wednesdayLeaders[wednesdayCount % 12],
+                    date: date
+                });
             }
-            if (day === 4) {
-                const occurrence = Math.floor((dateNum - 1) / 7);
-                let leader = getLeader(occurrence + 6, month);
-                activities.push({ title: "Atmosphere of Worship 2", time: "8:30 PM - 9:00 PM", type: "worship", leader: leader, date: date });
+            
+            // THURSDAY - ATMOSPHERE OF PRAYER 2
+            if (dayOfWeek === 4 && !isLastFriday) {
+                const thursdayCount = countWeekdayOccurrences(date, 4);
+                activities.push({
+                    title: "Atmosphere of Prayer 2",
+                    time: "8:30 PM - 9:00 PM",
+                    type: "worship",
+                    description: "Live & via Zoom",
+                    leader: thursdayLeaders[thursdayCount % 12],
+                    date: date
+                });
             }
-            if (day === 5) {
-                const lastDay = new Date(year, month + 1, 0).getDate();
-                let isLastFri = dateNum > lastDay - 7 && day === 5;
-                if (isLastFri) {
-                    const halfNightLeaders = {
-                        "01-31": "Sister Matilda & Rev Komba", "02-27": "Rev Felix & Elder Essie", "03-27": "Mama Essie & Sister Faith",
-                        "04-24": "Rev Komba & Rev Marrah", "05-29": "Sister Matilda & Deaconess Armstrong", "06-26": "Rev Marrah & Elder Brima",
-                        "07-31": "Elder Georgitia & Rev Felix", "08-28": "Rev Felix & Rev Marrah", "09-25": "Mama Essie & Sister Faith",
-                        "10-30": "Deaconess Armstrong & Elder Brima", "11-27": "Rev Felix & Deaconess Armstrong", "12-25": "Mama Essie & Sister Matilda"
-                    };
-                    let leader = halfNightLeaders[dateKey] || "Rev Felix & Rev Marrah";
-                    activities.push({ title: "Half-night of Prayer", time: "9:30 PM - 11:30 PM", type: "prayer", leader: leader, date: date });
+            
+            // FRIDAY BIBLE STUDIES / HALF-NIGHT OF PRAYER
+            if (dayOfWeek === 5) {
+                if (isLastFriday) {
+                    const dateKey = `${String(month + 1).padStart(2, '0')}-${String(dayOfMonth).padStart(2, '0')}`;
+                    const facilitators = halfNightFacilitators[dateKey] || ["Rev Felix", "Rev Marrah"];
+                    activities.push({
+                        title: "Half-night of Prayer",
+                        time: "9:30 PM - 11:30 PM",
+                        type: "prayer",
+                        description: "Live & via Zoom",
+                        leader: facilitators.join(" & "),
+                        date: date
+                    });
                 } else {
-                    let leader;
-                    if (month === 0 && dateNum === 2) {
-                        leader = "Rev Felix";
-                    } else {
-                        const startOfYear = new Date(year, 0, 1);
-                        const daysFromStart = Math.floor((date - startOfYear) / (1000 * 60 * 60 * 24));
-                        const weekOfYear = Math.floor(daysFromStart / 7);
-                        leader = allLeaders[weekOfYear % allLeaders.length];
-                    }
-                    activities.push({ title: "Bible Studies", time: "8:00 PM - 9:00 PM", type: "study", leader: leader, date: date });
+                    const monthKey = String(month + 1).padStart(2, '0');
+                    const fridayInMonth = Math.ceil(dayOfMonth / 7);
+                    const assignedLeaders = bibleStudyAssignments[monthKey] || ["Rev Felix"];
+                    const leader = assignedLeaders[Math.min(fridayInMonth - 1, assignedLeaders.length - 1)];
+                    
+                    activities.push({
+                        title: "Bible Studies",
+                        time: "8:00 PM - 9:00 PM",
+                        type: "study",
+                        description: "Live & via Zoom",
+                        leader: leader,
+                        date: date
+                    });
                 }
             }
-            if (day === 6) {
-                activities.push({ title: "Bible Studies for Children and Young Adults", time: "12:30 PM - 1:30 PM", type: "youth", leader: "Rev Felix", date: date });
+            
+            // SATURDAY CHILDREN & YOUNG ADULTS
+            if (dayOfWeek === 6) {
+                activities.push({
+                    title: "Bible Studies - Children & Young Adults",
+                    time: "12:30 PM - 1:30 PM",
+                    type: "youth",
+                    description: "Live & via Zoom",
+                    leader: "Rev Felix",
+                    date: date
+                });
             }
+            
+            // ✅ NEW: Add "Call the Women to Pray" at the END of EVERY day (sub-activity)
+            activities.push({
+                title: "Call the Women to Pray",
+                time: "6:00 PM - 6:30 PM",
+                type: "womens-prayer-sub",
+                description: "Live & via Zoom",
+                leader: "All Women",
+                date: date,
+                isSubActivity: true
+            });
+            
             return activities;
         }
+        
         function render() {
+            const monthYearDisplay = document.getElementById('monthYearDisplay');
+            const calendarGrid = document.getElementById('calendarGrid');
+            const activityList = document.getElementById('activityList');
+            
+            monthYearDisplay.textContent = displayDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+            
+            calendarGrid.innerHTML = '';
+            activityList.innerHTML = '';
+            allActivitiesCache = [];
+            
+            // Days of week headers
+            const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            dayNames.forEach(day => {
+                const dayHeader = document.createElement('div');
+                dayHeader.className = 'day-header';
+                dayHeader.textContent = day;
+                calendarGrid.appendChild(dayHeader);
+            });
+            
             const year = displayDate.getFullYear();
             const month = displayDate.getMonth();
+            
             const firstDay = new Date(year, month, 1).getDay();
-            const lastDate = new Date(year, month + 1, 0).getDate();
-            document.getElementById('monthSelect').value = month;
-            const calendarDays = document.getElementById('calendarDays');
-            calendarDays.innerHTML = '';
-            const listContainer = document.getElementById('activityListContainer');
-            listContainer.innerHTML = '';
-            allActivitiesCache.length = 0;
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            
+            // Empty cells before month starts
             for (let i = 0; i < firstDay; i++) {
-                const empty = document.createElement('div');
-                empty.className = 'calendar-day empty';
-                calendarDays.appendChild(empty);
+                calendarGrid.appendChild(document.createElement('div'));
             }
-            for (let day = 1; day <= lastDate; day++) {
+            
+            // Days of month
+            for (let day = 1; day <= daysInMonth; day++) {
                 const date = new Date(year, month, day);
-                const acts = getActivities(date);
-                acts.forEach(a => allActivitiesCache.push(a));
+                const activities = generateActivities(date);
                 const cell = document.createElement('div');
-                cell.className = 'calendar-day' + (acts.length > 0 ? ' has-events' : '');
-                let html = '<div class="day-number">' + day + '</div>';
-                acts.forEach(a => {
-                    html += '<div class="activity ' + a.type + '">';
-                    html += '<div class="activity-title">' + a.title + '</div>';
-                    if (a.time) html += '<div class="activity-time">' + a.time + '</div>';
-                    if (a.leader) html += '<div class="activity-leader">🎤 ' + a.leader + '</div>';
-                    html += '</div>';
+                const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                cell.setAttribute('data-date', dateStr);
+                cell.className = activities.length > 0 ? 'calendar-day has-events' : 'calendar-day';
+                
+                // ✅ FIXED: Highlight today (Jan 17, 2026 - Saturday)
+                const today = new Date(2026, 0, 17);
+                if (date.getFullYear() === today.getFullYear() && 
+                    date.getMonth() === today.getMonth() && 
+                    date.getDate() === today.getDate()) {
+                    cell.classList.add('today');
+                }
+                
+                let html = `<div class="day-number">${day}</div>`;
+                activities.forEach(activity => {
+                    html += `<div class="activity ${activity.type}">
+                        <div class="activity-title">${activity.title}</div>
+                        ${activity.time ? `<div class="activity-time">${activity.time}</div>` : ''}
+                        ${activity.leader ? `<div class="activity-leader">🎤 ${activity.leader}</div>` : ''}
+                    </div>`;
                 });
+                
                 cell.innerHTML = html;
-                calendarDays.appendChild(cell);
-                acts.forEach(a => {
+                calendarGrid.appendChild(cell);
+                
+                activities.forEach(activity => {
                     const li = document.createElement('li');
-                    li.className = 'activity-list-item ' + a.type;
-                    li.innerHTML = '<div class="activity-list-item-date">' + date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }) + '</div>' +
-                        '<div class="activity-list-item-title">' + a.title + '</div>' +
-                        (a.time ? '<div class="activity-list-item-time">⏰ ' + a.time + '</div>' : '') +
-                        (a.leader ? '<div class="activity-list-item-leader">🎤 ' + a.leader + '</div>' : '') +
-                        '<div style="font-size: 12px; color: var(--text-secondary); font-style: italic;">Live & via Zoom</div>';
-                    listContainer.appendChild(li);
+                    li.className = `activity-list-item ${activity.type}`;
+                    li.innerHTML = `
+                        <div class="activity-list-item-date">${date.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}</div>
+                        <div class="activity-list-item-title">${activity.title}</div>
+                        ${activity.time ? `<div class="activity-list-item-time">⏰ ${activity.time}</div>` : ''}
+                        ${activity.leader ? `<div class="activity-list-item-leader">🎤 ${activity.leader}</div>` : ''}
+                        <div style="font-size: 12px; color: var(--text-secondary); font-style: italic;">Live & via Zoom</div>
+                    `;
+                    activityList.appendChild(li);
+                    allActivitiesCache.push(activity);
                 });
+            }
+            
+            // Leadership display removed - now shows only 2 pastors statically
+        }
+        
+        // ✅ FIXED: Updated goToToday() function - NOW POINTS TO ACTUAL TODAY (Saturday, January 17, 2026)
+        function goToToday() {
+            const today = new Date(2026, 0, 17);  // Saturday, January 17, 2026 - ACTUAL TODAY
+            displayDate = new Date(today.getFullYear(), today.getMonth());
+            render();
+            
+            // Highlight and scroll to today
+            setTimeout(() => {
+                const todayCell = document.querySelector('[data-date="2026-01-17"]');
+                if (todayCell) {
+                    todayCell.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }, 100);
+        }
+        
+        // ✅ NEW: This Week button - shows all activities for the current week
+        function goToThisWeek() {
+            const today = new Date(2026, 0, 2); // Jan 2, 2026 is a Friday
+            const currentMonth = today.getMonth();
+            const currentDay = today.getDate();
+            const dayOfWeek = today.getDay();
+            
+            // Find Sunday of this week (0 = Sunday)
+            const daysToSubtract = dayOfWeek;
+            const sundayDate = new Date(today);
+            sundayDate.setDate(currentDay - daysToSubtract);
+            
+            // Navigate to the month of Sunday
+            displayDate = new Date(sundayDate.getFullYear(), sundayDate.getMonth());
+            render();
+            
+            // Highlight the week
+            setTimeout(() => {
+                for (let i = 0; i < 7; i++) {
+                    const weekDate = new Date(sundayDate);
+                    weekDate.setDate(sundayDate.getDate() + i);
+                    const dateStr = weekDate.getFullYear() + '-' 
+                                  + String(weekDate.getMonth() + 1).padStart(2, '0') 
+                                  + '-' + String(weekDate.getDate()).padStart(2, '0');
+                    const cell = document.querySelector(`[data-date="${dateStr}"]`);
+                    if (cell) {
+                        cell.style.boxShadow = '0 0 8px rgba(59, 130, 246, 0.5)';
+                        cell.style.borderColor = '#3b82f6';
+                    }
+                }
+            }, 100);
+        }
+        
+        function goToPrevMonth() {
+            displayDate = new Date(displayDate.getFullYear(), displayDate.getMonth() - 1);
+            render();
+        }
+        
+        function goToNextMonth() {
+            displayDate = new Date(displayDate.getFullYear(), displayDate.getMonth() + 1);
+            render();
+        }
+        
+        function jumpToMonth() {
+            const month = parseInt(document.getElementById('monthSelect').value);
+            if (month !== '') {
+                displayDate = new Date(2026, month, 1);
+                render();
             }
         }
-        function goToToday() { displayDate = new Date(2026, 0, 1); render(); }
-        function goToPrevMonth() { displayDate = new Date(displayDate.getFullYear(), displayDate.getMonth() - 1); render(); }
-        function goToNextMonth() { displayDate = new Date(displayDate.getFullYear(), displayDate.getMonth() + 1); render(); }
-        function jumpToMonth() { const month = parseInt(document.getElementById('monthSelect').value); displayDate = new Date(2026, month, 1); render(); }
+        
         function switchTab(tabName) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.tab-button').forEach(el => el.classList.remove('active'));
             document.getElementById(tabName).classList.add('active');
             event.target.classList.add('active');
         }
+        
         function toggleDarkMode() {
             document.body.classList.toggle('dark-mode');
             localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
         }
-        function printCalendar() { window.print(); }
+        
+        function printCalendar() {
+            window.print();
+        }
+        
         function shareWhatsApp() {
-            const text = "Check out Flaming Bible Church UK North London's 2026 Ministry Calendar!";
+            const text = "Check out Flaming Bible Church UK North London's 2026 Ministry Calendar! A place of fulfilling God's Purpose.";
             const url = encodeURIComponent(window.location.href);
             window.open(`https://wa.me/?text=${text}%20${url}`, '_blank');
         }
+        
         function shareEmail() {
-            const subject = "Flaming Bible Church 2026 Calendar";
+            const subject = "Flaming Bible Church 2026 Ministry Calendar";
             const body = "Check out our church calendar at: " + window.location.href;
             window.open(`mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`);
         }
-        function copyLink() {
-            navigator.clipboard.writeText(window.location.href).then(() => {
-                alert('Link copied to clipboard!');
+        
+        function searchActivities() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const items = document.querySelectorAll('.activity-list-item');
+            items.forEach(item => {
+                item.style.display = item.textContent.toLowerCase().includes(query) ? 'block' : 'none';
             });
         }
-        function exportToIcal() {
-            let ical = 'BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Flaming Bible Church//Church Calendar//EN\n';
-            allActivitiesCache.forEach(activity => {
-                const date = activity.date;
-                const dateStr = date.getFullYear() + String(date.getMonth() + 1).padStart(2, '0') + String(date.getDate()).padStart(2, '0');
-                ical += 'BEGIN:VEVENT\nDTSTART:' + dateStr + '\nSUMMARY:' + activity.title + '\nDESCRIPTION:' + (activity.leader ? 'Leader: ' + activity.leader : '') + '\nEND:VEVENT\n';
+        
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            document.querySelectorAll('.activity-list-item').forEach(item => {
+                item.style.display = 'block';
             });
-            ical += 'END:VCALENDAR';
-            const blob = new Blob([ical], { type: 'text/calendar' });
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = 'flaming-church-calendar.ics';
-            link.click();
         }
-        function filterActivities() {}
+        
         function submitPrayerRequest(event) {
             event.preventDefault();
             const name = document.getElementById('prayerName').value;
-            alert('Thank you ' + name + '! Your prayer request has been submitted.');
-            document.querySelector('form').reset();
+            alert('Thank you ' + name + '! Your prayer request has been submitted. We will keep you in our prayers.');
+            document.querySelector('.prayer-form form').reset();
         }
+        
+        // Load dark mode preference
         if (localStorage.getItem('darkMode') === 'true') {
             document.body.classList.add('dark-mode');
         }
+        
+        // Touch swipe for mobile
         let touchStartX = 0;
         document.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].screenX; });
         document.addEventListener('touchend', (e) => {
@@ -468,7 +1038,15 @@
             if (touchStartX - touchEndX > 50) goToNextMonth();
             if (touchEndX - touchStartX > 50) goToPrevMonth();
         });
+        
+        // Initialize
         render();
     </script>
-</body>
-</html>
+    
+    <!-- Service Worker Registration for PWA -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(reg => {
+                        console.log('✅ Service Worker registered success
